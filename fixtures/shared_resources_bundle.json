@@ -6,6 +6,7 @@
       "fullUrl": "urn:uuid:de0a1000-1000-4a11-8a11-000000000901",
       "resource": {
         "resourceType": "Organization",
+        "id": "1010",
         "active": true,
         "type": [
           { "coding": [{ "system": "http://terminology.hl7.org/CodeSystem/organization-type", "code": "prov", "display": "Healthcare Provider" }] }
@@ -16,12 +17,13 @@
           { "line": ["45 Beacon Respiratory Way"], "city": "Boston", "state": "MA", "postalCode": "02114", "country": "US" }
         ]
       },
-      "request": { "method": "POST", "url": "Organization" }
+      "request": { "method": "PUT", "url": "Organization/1010" }
     },
     {
       "fullUrl": "urn:uuid:de0a1000-1000-4a11-8a11-000000000902",
       "resource": {
         "resourceType": "Practitioner",
+        "id": "1011",
         "active": true,
         "name": [{ "use": "official", "family": "Nguyen", "given": ["Linh"], "prefix": ["Dr."] }],
         "gender": "female",
@@ -34,12 +36,13 @@
           }
         ]
       },
-      "request": { "method": "POST", "url": "Practitioner" }
+      "request": { "method": "PUT", "url": "Practitioner/1011" }
     },
     {
       "fullUrl": "urn:uuid:de0a1000-1000-4a11-8a11-000000000903",
       "resource": {
         "resourceType": "PractitionerRole",
+        "id": "1012",
         "active": true,
         "practitioner": { "reference": "urn:uuid:de0a1000-1000-4a11-8a11-000000000902" },
         "organization": { "reference": "urn:uuid:de0a1000-1000-4a11-8a11-000000000901" },
@@ -50,7 +53,7 @@
           { "coding": [{ "system": "http://snomed.info/sct", "code": "394582007", "display": "Respiratory medicine" }] }
         ]
       },
-      "request": { "method": "POST", "url": "PractitionerRole" }
+      "request": { "method": "PUT", "url": "PractitionerRole/1012" }
     }
   ]
 }

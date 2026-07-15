@@ -18,14 +18,16 @@ dashboard with AI-assisted summaries (Week 2 + stretch), backed by a local HAPI 
 
 ## Setup
 
-1. Start the FHIR server (from the project root, one level up from this app if using the
-   existing `docker-compose.yml`):
+1. Start the FHIR server:
 
    ```bash
    docker compose up -d
    ```
 
-   Confirm it's up: `curl http://localhost:8080/fhir/metadata`
+   This also runs a one-shot `fhir-init` container that waits for HAPI to be ready and loads all
+   the fixture bundles (Organization/Practitioner, all patients, appointments) automatically —
+   idempotent, so restarting the stack won't duplicate data. Confirm it's up:
+   `curl http://localhost:8080/fhir/metadata`, and check the seed: `docker compose logs fhir-init`.
 
 2. Install dependencies:
 
@@ -49,6 +51,20 @@ dashboard with AI-assisted summaries (Week 2 + stretch), backed by a local HAPI 
    ```
 
    Open http://localhost:3000 — it redirects to `/patients`.
+
+## Deployment
+
+Vercel (or any serverless host) can only run the Next.js app itself — it cannot run the HAPI FHIR
++ Postgres stack, since that's a stateful, long-running service and Vercel's functions are
+stateless and short-lived. You'll need two pieces:
+
+1. **The FHIR stack** (`docker-compose.yml`) — deploy this to any host that runs Docker Compose
+   and gives you a persistent volume: Railway, Render, Fly.io, a small VPS, etc. The `fhir-init`
+   container seeds the data automatically the first time the containers start, and skips
+   re-seeding on subsequent restarts as long as the Postgres volume persists.
+2. **The Next.js app** — deploy to Vercel as usual, with `FHIR_BASE_URL` (and `OPENAI_API_KEY`)
+   set in the Vercel project's environment variables, pointed at wherever step 1 is hosted (e.g.
+   `https://your-fhir-host.example.com/fhir`).
 
 ## Pages
 

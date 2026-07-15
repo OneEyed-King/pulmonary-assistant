@@ -16,6 +16,19 @@ services:
       hapi-fhir-postgres:
         condition: service_healthy
 
+  fhir-init:
+    image: curlimages/curl:latest
+    container_name: fhir-init
+    depends_on:
+      - hapi-fhir
+    environment:
+      FHIR_SERVER: "http://hapi-fhir:8080/fhir"
+    volumes:
+      - ./fixtures:/fixtures:ro
+      - ./scripts:/scripts:ro
+    entrypoint: ["/bin/sh", "/scripts/init-fhir-data.sh"]
+    restart: "no"
+
   hapi-fhir-postgres:
     image: postgres:16-alpine
     container_name: hapi-fhir-postgres
