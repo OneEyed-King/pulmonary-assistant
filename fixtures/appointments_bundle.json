@@ -14,8 +14,7 @@
         "end": "2026-07-14T09:30:00-04:00",
         "participant": [
           { "actor": { "reference": "Patient/4f083ce3-f12b-bb4b-7353-e17f0cd55b0a" }, "status": "accepted" },
-          { "actor": { "reference": "Practitioner/1011", "display": "Dr. Linh Nguyen" }, "status": "accepted" },
-          { "actor": { "reference": "Organization/1010" }, "status": "accepted" }
+          { "actor": { "reference": "Practitioner/1011", "display": "Dr. Linh Nguyen" }, "status": "accepted" }
         ]
       },
       "request": { "method": "POST", "url": "Appointment" }
@@ -32,8 +31,7 @@
         "end": "2026-07-14T11:00:00-04:00",
         "participant": [
           { "actor": { "reference": "Patient/c86c400e-ff88-a1e3-2e23-caa4d8311f47" }, "status": "accepted" },
-          { "actor": { "reference": "Practitioner/1011", "display": "Dr. Linh Nguyen" }, "status": "accepted" },
-          { "actor": { "reference": "Organization/1010" }, "status": "accepted" }
+          { "actor": { "reference": "Practitioner/1011", "display": "Dr. Linh Nguyen" }, "status": "accepted" }
         ]
       },
       "request": { "method": "POST", "url": "Appointment" }
@@ -50,8 +48,7 @@
         "end": "2026-07-14T14:30:00-04:00",
         "participant": [
           { "actor": { "reference": "Patient/eb5910f1-26e6-bc6f-b300-716eae678d6f" }, "status": "accepted" },
-          { "actor": { "reference": "Practitioner/1011", "display": "Dr. Linh Nguyen" }, "status": "accepted" },
-          { "actor": { "reference": "Organization/1010" }, "status": "accepted" }
+          { "actor": { "reference": "Practitioner/1011", "display": "Dr. Linh Nguyen" }, "status": "accepted" }
         ]
       },
       "request": { "method": "POST", "url": "Appointment" }
