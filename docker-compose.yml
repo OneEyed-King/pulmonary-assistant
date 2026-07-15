@@ -29,6 +29,24 @@ services:
     entrypoint: ["/bin/sh", "/scripts/init-fhir-data.sh"]
     restart: "no"
 
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chart-navigator-web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      FHIR_BASE_URL: "http://hapi-fhir:8080/fhir"
+      OPENAI_API_KEY: "${OPENAI_API_KEY}"
+      OPENAI_MODEL: "${OPENAI_MODEL:-gpt-4o-mini}"
+    depends_on:
+      hapi-fhir:
+        condition: service_started
+      fhir-init:
+        condition: service_completed_successfully
+
   hapi-fhir-postgres:
     image: postgres:16-alpine
     container_name: hapi-fhir-postgres
