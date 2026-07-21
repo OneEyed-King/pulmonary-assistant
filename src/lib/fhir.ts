@@ -11,6 +11,7 @@ import type {
   AllergyIntolerance,
   Appointment,
 } from "./fhir-types";
+import { computeCareGap, type CareGap } from "./care-gaps";
 
 const FHIR_BASE_URL = process.env.FHIR_BASE_URL ?? "http://localhost:8080/fhir";
 
@@ -113,6 +114,27 @@ export async function getAllergies(patientId: string): Promise<AllergyIntoleranc
     `AllergyIntolerance?patient=${patientId}&_count=100`
   );
   return bundleResources(bundle);
+}
+
+export interface PatientCareGap {
+  patient: Patient;
+  gap: CareGap;
+}
+
+/** Scans every patient's encounter history for outstanding care gaps (overdue routine
+ * follow-up, or no follow-up recorded after an emergency/inpatient visit). Fine to do as
+ * an N+1 fetch loop at this panel size — revisit if the patient list grows large. */
+export async function getCareGaps(): Promise<PatientCareGap[]> {
+  const patients = await getPatients();
+  const results = await Promise.all(
+    patients.map(async (p) => {
+      if (!p.id) return null;
+      const encounters = await getEncounters(p.id);
+      const gap = computeCareGap(encounters);
+      return gap ? { patient: p, gap } : null;
+    })
+  );
+  return results.filter((r): r is PatientCareGap => r !== null);
 }
 
 /** Fetches everything needed to render the chart-review dashboard in parallel. */

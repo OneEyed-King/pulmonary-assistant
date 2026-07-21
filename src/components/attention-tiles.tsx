@@ -20,17 +20,17 @@ function Tile({
   tone: "red" | "amber" | "neutral";
 }) {
   const toneClasses = {
-    red: "border-red-200 bg-red-50",
-    amber: "border-amber-200 bg-amber-50",
-    neutral: "border-border bg-white",
+    red: "border-rose-200 bg-rose-50/60",
+    amber: "border-amber-200 bg-amber-50/60",
+    neutral: "border-border/70 bg-white",
   }[tone];
   const iconClasses = {
-    red: "text-red-600",
+    red: "text-rose-600",
     amber: "text-amber-600",
     neutral: "text-muted-foreground",
   }[tone];
   const numberClasses = {
-    red: "text-red-700",
+    red: "text-rose-700",
     amber: "text-amber-700",
     neutral: "text-gray-900",
   }[tone];

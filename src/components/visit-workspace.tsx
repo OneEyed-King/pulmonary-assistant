@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { MEDICATION_CATALOG } from "@/lib/medication-catalog";
 import type { Encounter } from "@/lib/fhir-types";
-import { Trash2, Plus, ClipboardCheck, CheckCircle2 } from "lucide-react";
+import { Trash2, Plus, ClipboardCheck, CheckCircle2, Sparkles } from "lucide-react";
 
 const PRACTITIONER_REF = "Practitioner/1011";
 const ORGANIZATION_REF = "Organization/1010";
@@ -57,6 +57,9 @@ export function VisitWorkspace({
   const [medDosage, setMedDosage] = React.useState(MEDICATION_CATALOG[0].defaultDosage);
 
   const [note, setNote] = React.useState<NoteFields>({ subjective: "", objective: "", assessment: "", plan: "" });
+  const [shorthand, setShorthand] = React.useState("");
+  const [expanding, setExpanding] = React.useState(false);
+  const [expandError, setExpandError] = React.useState<string | null>(null);
 
   const [step, setStep] = React.useState<"chart" | "review" | "done">("chart");
   const [finalizing, setFinalizing] = React.useState(false);
@@ -107,6 +110,35 @@ export function VisitWorkspace({
   const removeMedication = (idx: number) => setStagedMeds((prev) => prev.filter((_, i) => i !== idx));
 
   const noteHasContent = Object.values(note).some((v) => v.trim().length > 0);
+
+  const expandNote = async () => {
+    if (!shorthand.trim()) return;
+    setExpanding(true);
+    setExpandError(null);
+    try {
+      const res = await fetch("/api/ai/expand-note", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          shorthand,
+          activeConditions,
+          stagedMedications: stagedMeds.map((m) => `${m.display} — ${m.dosage}`),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error ?? `Failed to expand note (${res.status})`);
+      setNote({
+        subjective: data.subjective || "",
+        objective: data.objective || "",
+        assessment: data.assessment || "",
+        plan: data.plan || "",
+      });
+    } catch (err) {
+      setExpandError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setExpanding(false);
+    }
+  };
 
   const finalize = async () => {
     if (!encounter?.id) return;
@@ -199,7 +231,7 @@ export function VisitWorkspace({
   if (step === "done") {
     return (
       <Card className="p-8 text-center">
-        <CheckCircle2 className="mx-auto h-8 w-8 text-green-600" />
+        <CheckCircle2 className="mx-auto h-8 w-8 text-emerald-600" />
         <p className="mt-2 font-display text-lg font-semibold text-gray-900">Visit finalized</p>
         <p className="mt-1 text-sm text-muted-foreground">
           {stagedMeds.length} medication{stagedMeds.length === 1 ? "" : "s"} and{" "}
@@ -370,6 +402,33 @@ export function VisitWorkspace({
               ))}
             </div>
           )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-1.5">
+            <Sparkles className="h-4 w-4 text-primary" />
+            AI Note Assist
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-2">
+          <Label>Quick shorthand from the visit</Label>
+          <Textarea
+            rows={2}
+            value={shorthand}
+            onChange={(e) => setShorthand(e.target.value)}
+            placeholder="e.g. wheezing better, adherence spotty pt admits missing doses, lungs clear, step up therapy, f/u 6wk"
+          />
+          <p className="text-xs text-muted-foreground">
+            Expands your own shorthand into a draft SOAP note below — it only elaborates on what you write here
+            (plus conditions/medications already in this visit), never invents findings. Review and edit before saving.
+          </p>
+          {expandError && <p className="text-sm text-red-600">{expandError}</p>}
+          <Button variant="outline" size="sm" onClick={expandNote} disabled={expanding || !shorthand.trim()}>
+            <Sparkles className="h-3.5 w-3.5" />
+            {expanding ? "Expanding…" : "Expand with AI"}
+          </Button>
         </CardContent>
       </Card>
 

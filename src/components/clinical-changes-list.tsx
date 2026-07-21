@@ -16,15 +16,15 @@ interface ChangeRow {
 }
 
 const rowStyles = {
-  significant: "border-red-200 bg-red-50",
-  attention: "border-amber-200 bg-amber-50",
-  info: "border-blue-200 bg-blue-50",
+  significant: "border-rose-200 bg-rose-50/60",
+  attention: "border-amber-200 bg-amber-50/60",
+  info: "border-sky-200 bg-sky-50/60",
 };
 
 const labelStyles = {
-  significant: "text-red-700",
+  significant: "text-rose-700",
   attention: "text-amber-700",
-  info: "text-blue-700",
+  info: "text-sky-700",
 };
 
 export function ClinicalChangesList({

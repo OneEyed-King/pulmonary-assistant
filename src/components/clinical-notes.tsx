@@ -1,21 +1,28 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import type { Composition, DiagnosticReport } from "@/lib/fhir-types";
+import { ChevronDown } from "lucide-react";
+import type { Composition, DiagnosticReport, Observation } from "@/lib/fhir-types";
 import { formatDateTime } from "@/lib/utils";
+import { ReportViewerButton } from "@/components/report-viewer";
 
 interface NoteItem {
   date: string;
   kind: "note" | "report";
   title: string;
   body: React.ReactNode;
+  report?: DiagnosticReport;
 }
 
 export function ClinicalNotes({
   compositions,
   diagnosticReports,
+  observations,
+  patientName,
 }: {
   compositions: Composition[];
   diagnosticReports: DiagnosticReport[];
+  observations: Observation[];
+  patientName: string;
 }) {
   const noteItems: NoteItem[] = compositions.map((c) => ({
     date: c.date ?? "",
@@ -41,6 +48,7 @@ export function ClinicalNotes({
     kind: "report",
     title: r.code.text ?? r.code.coding?.[0]?.display ?? "Diagnostic Report",
     body: <p className="text-sm text-gray-700">{r.conclusion ?? "No conclusion recorded."}</p>,
+    report: r,
   }));
 
   const items = [...noteItems, ...reportItems].sort(
@@ -52,20 +60,28 @@ export function ClinicalNotes({
       <CardHeader>
         <CardTitle>Notes &amp; Diagnostic Reports</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent className="space-y-1.5">
         {items.length === 0 && <p className="text-sm text-gray-500">No notes or reports recorded.</p>}
         {items.map((item, idx) => (
-          <details key={idx} className="rounded-md border border-border">
-            <summary className="flex cursor-pointer items-center justify-between gap-3 px-3 py-2 text-sm font-medium text-gray-900">
-              <span>{item.title}</span>
-              <span className="flex items-center gap-2 text-xs font-normal text-gray-400">
+          <details key={idx} className="group rounded-md border border-border">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-md px-3 py-2 text-sm font-medium text-gray-900 transition-colors hover:bg-muted/60 [&::-webkit-details-marker]:hidden">
+              <span className="flex min-w-0 items-center gap-2">
+                <ChevronDown className="h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
+                <span className="truncate">{item.title}</span>
+              </span>
+              <span className="flex shrink-0 items-center gap-2 text-xs font-normal text-gray-400">
                 {formatDateTime(item.date)}
                 <Badge tone={item.kind === "note" ? "blue" : "gray"}>
                   {item.kind === "note" ? "SOAP note" : "Report"}
                 </Badge>
               </span>
             </summary>
-            <div className="border-t border-border px-3 py-2">{item.body}</div>
+            <div className="space-y-2 border-t border-border px-3 py-2">
+              {item.body}
+              {item.report && (
+                <ReportViewerButton report={item.report} observations={observations} patientName={patientName} />
+              )}
+            </div>
           </details>
         ))}
       </CardContent>

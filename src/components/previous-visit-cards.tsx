@@ -1,8 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { History } from "lucide-react";
-import type { Composition, Condition, DiagnosticReport, Encounter, MedicationRequest } from "@/lib/fhir-types";
+import { ChevronDown, History } from "lucide-react";
+import type { Composition, Condition, DiagnosticReport, Encounter, MedicationRequest, Observation } from "@/lib/fhir-types";
 import { formatDateTime } from "@/lib/utils";
+import { ReportViewerButton } from "@/components/report-viewer";
 
 function refId(reference?: string): string | undefined {
   return reference?.split("/").pop();
@@ -75,12 +76,16 @@ export function PreviousVisitCards({
   diagnosticReports,
   conditions,
   medications,
+  observations,
+  patientName,
 }: {
   encounters: Encounter[];
   compositions: Composition[];
   diagnosticReports: DiagnosticReport[];
   conditions: Condition[];
   medications: MedicationRequest[];
+  observations: Observation[];
+  patientName: string;
 }) {
   const visits = buildVisitGroups(encounters, compositions, diagnosticReports, conditions, medications).slice(0, 3);
 
@@ -98,7 +103,7 @@ export function PreviousVisitCards({
           <p className="text-xs text-muted-foreground">Last {visits.length}</p>
         </div>
       </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent className="space-y-1.5">
         {visits.length === 0 && <p className="text-sm text-muted-foreground">No previous visits recorded.</p>}
         {visits.map((visit, idx) => {
           const type = visit.encounter?.type?.[0]?.coding?.[0]?.display ?? visit.encounter?.type?.[0]?.text ?? "Visit";
@@ -110,10 +115,11 @@ export function PreviousVisitCards({
 
           return (
             <details key={idx} open={idx === 0} className="group rounded-md border border-border">
-              <summary className="flex cursor-pointer items-center justify-between gap-3 px-3 py-2.5">
-                <div className="flex items-center gap-2">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-md px-3 py-2.5 transition-colors hover:bg-muted/60 [&::-webkit-details-marker]:hidden">
+                <div className="flex min-w-0 items-center gap-2">
+                  <ChevronDown className="h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180" />
                   <span className="font-mono text-xs text-muted-foreground">{formatDateTime(visit.date)}</span>
-                  <span className="text-sm font-medium text-gray-900">{type}</span>
+                  <span className="truncate text-sm font-medium text-gray-900">{type}</span>
                   {cls && <Badge tone={cls === "EMER" ? "red" : "blue"}>{cls}</Badge>}
                 </div>
                 {idx === 0 && <Badge tone="green">Most recent</Badge>}
@@ -146,9 +152,15 @@ export function PreviousVisitCards({
                 {assessment && <Field label="Assessment">{assessment}</Field>}
                 {doctorNotes && <Field label="Doctor Notes">{doctorNotes}</Field>}
                 {visit.diagnosticReports.map((r, i) => (
-                  <Field key={i} label={r.code.text ?? r.code.coding?.[0]?.display ?? "Diagnostic Report"}>
-                    {r.conclusion ?? "No conclusion recorded."}
-                  </Field>
+                  <div key={i}>
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                        {r.code.text ?? r.code.coding?.[0]?.display ?? "Diagnostic Report"}
+                      </div>
+                      <ReportViewerButton report={r} observations={observations} patientName={patientName} />
+                    </div>
+                    <div className="mt-0.5 text-sm text-gray-700">{r.conclusion ?? "No conclusion recorded."}</div>
+                  </div>
                 ))}
                 {!reason && !assessment && !doctorNotes && !plan && visit.diagnosticReports.length === 0 && (
                   <p className="text-sm text-muted-foreground">No notes or reports for this visit.</p>

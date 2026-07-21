@@ -116,10 +116,10 @@ export function computeMetricComparisons(observations: Observation[]): MetricCom
 export function severityDotColor(severity: Severity): string {
   switch (severity) {
     case "significant":
-      return "#dc2626";
+      return "#e11d48"; // rose-600 — softer than a pure red, still reads as urgent
     case "attention":
-      return "#d97706";
+      return "#d97706"; // amber-600
     default:
-      return "#16a34a";
+      return "#059669"; // emerald-600
   }
 }

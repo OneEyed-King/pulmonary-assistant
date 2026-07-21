@@ -3,13 +3,15 @@ import { cn } from "@/lib/utils";
 
 type Tone = "default" | "green" | "amber" | "red" | "gray" | "blue";
 
+// Soft, low-saturation badge fills (light -50 tint + -700 text) rather than punchy -100/-800
+// pairs — reads calmer against the app's warm background without losing legibility.
 const toneClasses: Record<Tone, string> = {
-  default: "bg-gray-100 text-gray-800",
-  green: "bg-green-100 text-green-800",
-  amber: "bg-amber-100 text-amber-800",
-  red: "bg-red-100 text-red-800",
-  gray: "bg-gray-100 text-gray-600",
-  blue: "bg-blue-100 text-blue-800",
+  default: "bg-gray-50 text-gray-700",
+  green: "bg-emerald-50 text-emerald-700",
+  amber: "bg-amber-50 text-amber-700",
+  red: "bg-rose-50 text-rose-700",
+  gray: "bg-gray-50 text-gray-600",
+  blue: "bg-sky-50 text-sky-700",
 };
 
 export function Badge({

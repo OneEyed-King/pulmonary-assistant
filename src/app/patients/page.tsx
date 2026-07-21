@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getPatients } from "@/lib/fhir";
+import { getPatients, getCareGaps } from "@/lib/fhir";
 import { humanName } from "@/lib/fhir-types";
 import { formatDate, calculateAge, initials } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { TodaySchedule } from "@/components/today-schedule";
+import { CareGapsPanel } from "@/components/care-gaps-panel";
 import { Plus, Search, ChevronRight } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -30,6 +31,7 @@ export default async function PatientsPage({
   const q = searchParams.q?.trim();
   let patients: Awaited<ReturnType<typeof getPatients>> = [];
   let error: string | null = null;
+  let careGaps: Awaited<ReturnType<typeof getCareGaps>> = [];
 
   try {
     patients = await getPatients(q);
@@ -37,12 +39,21 @@ export default async function PatientsPage({
     error = err instanceof Error ? err.message : String(err);
   }
 
+  if (!error) {
+    try {
+      careGaps = await getCareGaps();
+    } catch {
+      // Non-critical panel — if this fails, just show nothing rather than breaking the homepage.
+      careGaps = [];
+    }
+  }
+
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_300px] lg:items-start">
       <div className="space-y-6">
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Chart Navigator</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">PulmoLens</p>
             <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight text-gray-900">
               {greeting()}, Doctor
             </h1>
@@ -140,8 +151,9 @@ export default async function PatientsPage({
         )}
       </div>
 
-      <aside className="lg:sticky lg:top-4">
+      <aside className="space-y-4 lg:sticky lg:top-4">
         <TodaySchedule date={todayISO()} />
+        <CareGapsPanel gaps={careGaps} />
       </aside>
     </div>
   );

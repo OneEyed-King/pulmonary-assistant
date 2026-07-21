@@ -16,10 +16,12 @@ import { MedicationsTable } from "@/components/medications-table";
 import { ClinicalNotes } from "@/components/clinical-notes";
 import { PreviousVisitCards } from "@/components/previous-visit-cards";
 import { LabComparisonCards } from "@/components/lab-comparison-cards";
+import { LabReportsTable } from "@/components/lab-reports-table";
 import { TrendChart } from "@/components/trend-chart";
 import { PhysicianBrief } from "@/components/physician-brief";
 import { ClinicalChangesList } from "@/components/clinical-changes-list";
 import { LOINC } from "@/lib/observations";
+import { humanName } from "@/lib/fhir-types";
 
 export const dynamic = "force-dynamic";
 
@@ -44,7 +46,7 @@ export default async function PatientDetailPage({ params }: { params: { id: stri
     chart;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       <div className="flex items-center justify-between">
         <Link href="/patients">
           <Button variant="ghost" size="sm">
@@ -83,10 +85,10 @@ export default async function PatientDetailPage({ params }: { params: { id: stri
           </TabsTrigger>
         </TabsList>
 
-        <div className="min-w-0 space-y-4">
+        <div className="min-w-0 space-y-5">
           <PatientHeader patient={patient} conditions={conditions} allergies={allergies} encounters={encounters} />
 
-          <TabsContent value="overview" className="space-y-4">
+          <TabsContent value="overview" className="space-y-5">
             <PhysicianBrief patientId={patient.id!} />
             <AttentionTiles observations={observations} encounters={encounters} medications={medications} />
             <ClinicalChangesList observations={observations} encounters={encounters} medications={medications} />
@@ -101,6 +103,8 @@ export default async function PatientDetailPage({ params }: { params: { id: stri
               diagnosticReports={diagnosticReports}
               conditions={conditions}
               medications={medications}
+              observations={observations}
+              patientName={humanName(patient.name)}
             />
           </TabsContent>
 
@@ -140,6 +144,11 @@ export default async function PatientDetailPage({ params }: { params: { id: stri
                 series={[{ label: "SpO2", codes: LOINC.SPO2, color: "#dc2626" }]}
               />
             </div>
+            <LabReportsTable
+              diagnosticReports={diagnosticReports}
+              observations={observations}
+              patientName={humanName(patient.name)}
+            />
           </TabsContent>
 
           <TabsContent value="medications">
@@ -147,7 +156,12 @@ export default async function PatientDetailPage({ params }: { params: { id: stri
           </TabsContent>
 
           <TabsContent value="notes">
-            <ClinicalNotes compositions={compositions} diagnosticReports={diagnosticReports} />
+            <ClinicalNotes
+              compositions={compositions}
+              diagnosticReports={diagnosticReports}
+              observations={observations}
+              patientName={humanName(patient.name)}
+            />
           </TabsContent>
         </div>
 

@@ -4,16 +4,18 @@ import { cn, formatDate } from "@/lib/utils";
 import { computeMetricComparisons } from "@/lib/clinical-changes";
 import type { Observation } from "@/lib/fhir-types";
 
+// Softer, warmer severity tints — muted rose instead of a punchy red, and a lighter
+// amber wash — so a grid full of tiles reads calm rather than alarm-heavy.
 const severityBorder = {
-  stable: "border-border",
-  attention: "border-amber-300",
-  significant: "border-red-300",
+  stable: "border-border/70",
+  attention: "border-amber-200",
+  significant: "border-rose-200",
 };
 
 const severityBg = {
   stable: "bg-white",
-  attention: "bg-amber-50",
-  significant: "bg-red-50",
+  attention: "bg-amber-50/60",
+  significant: "bg-rose-50/60",
 };
 
 export function LabComparisonCards({ observations }: { observations: Observation[] }) {
@@ -29,13 +31,13 @@ export function LabComparisonCards({ observations }: { observations: Observation
           </CardTitle>
           <div className="flex items-center gap-3 text-xs text-muted-foreground">
             <span className="flex items-center gap-1">
-              <span className="h-2 w-2 rounded-full bg-green-600" /> Stable
+              <span className="h-2 w-2 rounded-full bg-emerald-500" /> Stable
             </span>
             <span className="flex items-center gap-1">
-              <span className="h-2 w-2 rounded-full bg-amber-500" /> Attention
+              <span className="h-2 w-2 rounded-full bg-amber-400" /> Attention
             </span>
             <span className="flex items-center gap-1">
-              <span className="h-2 w-2 rounded-full bg-red-600" /> Significant
+              <span className="h-2 w-2 rounded-full bg-rose-400" /> Significant
             </span>
           </div>
         </div>
@@ -66,7 +68,7 @@ export function LabComparisonCards({ observations }: { observations: Observation
                       <span
                         className={cn(
                           "flex items-center gap-1 text-xs font-medium",
-                          worsening ? "text-red-600" : c.direction === "flat" ? "text-muted-foreground" : "text-green-600"
+                          worsening ? "text-rose-600" : c.direction === "flat" ? "text-muted-foreground" : "text-emerald-600"
                         )}
                       >
                         <TrendIcon className="h-3.5 w-3.5" />
@@ -88,7 +90,7 @@ export function LabComparisonCards({ observations }: { observations: Observation
                     )}
                     <div>
                       <p className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">Current</p>
-                      <p className={cn("font-mono text-base font-semibold", worsening ? "text-red-700" : "text-gray-900")}>
+                      <p className={cn("font-mono text-base font-semibold", worsening ? "text-rose-700" : "text-gray-900")}>
                         {c.current}
                         {c.unit}
                       </p>

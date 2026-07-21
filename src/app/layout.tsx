@@ -16,7 +16,7 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Chart Navigator",
+  title: "PulmoLens",
   description: "AI-powered pulmonology chart review on top of a FHIR patient record system",
 };
 
@@ -36,7 +36,7 @@ export default function RootLayout({
               <span className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-sm text-primary-foreground">
                 ⌘
               </span>
-              Chart Navigator
+              PulmoLens
             </a>
           </header>
           <main className="flex-1 px-6 py-6">{children}</main>

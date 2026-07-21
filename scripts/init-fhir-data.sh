@@ -52,6 +52,8 @@ post_bundle "00_base_patients_bundle.json"
 post_bundle "patient1_asthma_bundle_v2.json"
 post_bundle "patient2_copd_bundle.json"
 post_bundle "patient3_severe_allergic_asthma_bundle.json"
+post_bundle "patient4_moderate_asthma_bundle.json"
+post_bundle "patient5_severe_asthma_gerd_bundle.json"
 post_bundle "appointments_bundle.json"
 
 count=$(curl -s "$FHIR_SERVER/Patient?_summary=count" | grep -o '"total":[0-9]*' | grep -o '[0-9]*')

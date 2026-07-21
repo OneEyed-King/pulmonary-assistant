@@ -323,6 +323,211 @@
         "method": "PUT",
         "url": "Patient/eb5910f1-26e6-bc6f-b300-716eae678d6f"
       }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "b7e4a210-3f6c-4e01-9a52-104000000001",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "code": "2106-3",
+                  "display": "White"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "White"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "code": "2186-5",
+                  "display": "Not Hispanic or Latino"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Not Hispanic or Latino"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueCode": "M"
+          }
+        ],
+        "identifier": [
+          {
+            "system": "urn:medblocks",
+            "value": "b7e4a210-3f6c-4e01-9a52-104000000001"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Feldman",
+            "given": [
+              "Marcus",
+              "Elijah"
+            ],
+            "prefix": [
+              "Mr."
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "555-204-7761",
+            "use": "home"
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1990-03-22",
+        "address": [
+          {
+            "line": [
+              "145 Birchwood Ave"
+            ],
+            "city": "Malden",
+            "state": "MA",
+            "postalCode": "02148",
+            "country": "US"
+          }
+        ],
+        "maritalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+              "code": "S",
+              "display": "Never Married"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/b7e4a210-3f6c-4e01-9a52-104000000001"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "c39f7b52-8e1d-4a6f-9c3a-105000000001",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "code": "2028-9",
+                  "display": "Asian"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Asian"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "code": "2186-5",
+                  "display": "Not Hispanic or Latino"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Not Hispanic or Latino"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueCode": "F"
+          }
+        ],
+        "identifier": [
+          {
+            "system": "urn:medblocks",
+            "value": "c39f7b52-8e1d-4a6f-9c3a-105000000001"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Anand",
+            "given": [
+              "Priya"
+            ],
+            "prefix": [
+              "Ms."
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "555-337-9042",
+            "use": "home"
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1978-11-09",
+        "address": [
+          {
+            "line": [
+              "58 Meetinghouse Rd"
+            ],
+            "city": "Newton",
+            "state": "MA",
+            "postalCode": "02458",
+            "country": "US"
+          }
+        ],
+        "maritalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+              "code": "M",
+              "display": "Married"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/c39f7b52-8e1d-4a6f-9c3a-105000000001"
+      }
     }
   ]
 }
