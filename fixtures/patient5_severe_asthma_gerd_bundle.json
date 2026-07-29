@@ -200,7 +200,7 @@
         "category": [
           "medication"
         ],
-        "criticality": "moderate",
+        "criticality": "low",
         "code": {
           "coding": [
             {
