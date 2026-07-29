@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertTriangle } from "lucide-react";
-import { computeMetricComparisons, severityDotColor } from "@/lib/clinical-changes";
+import { computeMetricComparisons, severityDotColor, PULMO_METRICS, type MetricConfig } from "@/lib/clinical-changes";
 import { formatDate } from "@/lib/utils";
 import type { Encounter, MedicationRequest, Observation } from "@/lib/fhir-types";
 
@@ -16,14 +16,16 @@ export function ClinicalAlerts({
   observations,
   encounters,
   medications,
+  metrics = PULMO_METRICS,
 }: {
   observations: Observation[];
   encounters: Encounter[];
   medications: MedicationRequest[];
+  metrics?: MetricConfig[];
 }) {
   const alerts: Alert[] = [];
 
-  for (const c of computeMetricComparisons(observations)) {
+  for (const c of computeMetricComparisons(observations, metrics)) {
     if (c.severity === "stable") continue;
     const trendWord = c.direction === "up" ? "rose" : c.direction === "down" ? "declined" : "changed";
     const from = c.previous !== undefined ? `${c.previous}${c.unit}` : "unknown";

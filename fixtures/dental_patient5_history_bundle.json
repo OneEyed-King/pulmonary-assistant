@@ -1,0 +1,240 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:de0c5000-5000-4b55-8b55-000000000101",
+      "resource": {
+        "resourceType": "Condition",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "unconfirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "78453001",
+              "display": "Chronic periodontitis"
+            }
+          ],
+          "text": "Generalized moderate-to-severe periodontal disease, reported by patient \u2014 untreated, no visit yet"
+        },
+        "subject": {
+          "reference": "Patient/de555555-5555-4555-8555-000000000005"
+        },
+        "recordedDate": "2026-07-20",
+        "note": [
+          {
+            "text": "Recorded from new-patient intake form; patient referred by PCP but has not yet been seen for an exam."
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Condition"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c5000-5000-4b55-8b55-000000000102",
+      "resource": {
+        "resourceType": "Condition",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "resolved"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "unconfirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "413282004",
+              "display": "Extraction of tooth"
+            }
+          ],
+          "text": "Missing tooth \u2014 reported extraction, outside practice"
+        },
+        "subject": {
+          "reference": "Patient/de555555-5555-4555-8555-000000000005"
+        },
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "system": "https://pulmolens.app/fhir/tooth",
+                "code": "3",
+                "display": "Tooth #3 (Upper Right 1st Molar)"
+              }
+            ]
+          }
+        ],
+        "recordedDate": "2026-07-20"
+      },
+      "request": {
+        "method": "POST",
+        "url": "Condition"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c5000-5000-4b55-8b55-000000000103",
+      "resource": {
+        "resourceType": "Condition",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "resolved"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "unconfirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "413282004",
+              "display": "Extraction of tooth"
+            }
+          ],
+          "text": "Missing tooth \u2014 reported extraction, outside practice"
+        },
+        "subject": {
+          "reference": "Patient/de555555-5555-4555-8555-000000000005"
+        },
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "system": "https://pulmolens.app/fhir/tooth",
+                "code": "30",
+                "display": "Tooth #30 (Lower Right 1st Molar)"
+              }
+            ]
+          }
+        ],
+        "recordedDate": "2026-07-20"
+      },
+      "request": {
+        "method": "POST",
+        "url": "Condition"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c5000-5000-4b55-8b55-000000000104",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+              "code": "unconfirmed"
+            }
+          ]
+        },
+        "category": [
+          "medication"
+        ],
+        "criticality": "low",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "764146007",
+              "display": "Penicillin"
+            }
+          ],
+          "text": "Penicillin (reported, unconfirmed)"
+        },
+        "patient": {
+          "reference": "Patient/de555555-5555-4555-8555-000000000005"
+        },
+        "recordedDate": "2026-07-20",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "text": "Rash, per patient-reported history as a child"
+              }
+            ],
+            "severity": "mild"
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "AllergyIntolerance"
+      }
+    }
+  ]
+}

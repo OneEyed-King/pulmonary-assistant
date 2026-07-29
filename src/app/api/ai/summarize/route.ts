@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getPatientChart } from "@/lib/fhir";
-import { buildClinicalContext, AI_SYSTEM_PROMPT } from "@/lib/ai-summary";
+import { buildClinicalContext, summarySystemPrompt } from "@/lib/ai-summary";
+import { specialtyFromPatient } from "@/lib/specialty";
 
 export async function POST(req: NextRequest) {
   const { patientId } = (await req.json()) as { patientId?: string };
@@ -26,7 +27,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const context = buildClinicalContext(chart);
+  const specialty = specialtyFromPatient(chart.patient);
+  const context = buildClinicalContext(chart, specialty);
   const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
 
   let completionRes: Response;
@@ -42,7 +44,7 @@ export async function POST(req: NextRequest) {
         response_format: { type: "json_object" },
         temperature: 0.3,
         messages: [
-          { role: "system", content: AI_SYSTEM_PROMPT },
+          { role: "system", content: summarySystemPrompt(specialty) },
           { role: "user", content: context },
         ],
       }),

@@ -4,6 +4,10 @@ import { humanName } from "@/lib/fhir-types";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { VisitWorkspace } from "@/components/visit-workspace";
+import { SPECIALTIES } from "@/lib/specialty";
+import { medicationCatalogFor } from "@/lib/medication-catalog";
+
+const SPECIALTY = SPECIALTIES.pulmo;
 
 export const dynamic = "force-dynamic";
 
@@ -42,7 +46,7 @@ export default async function VisitPage({ params }: { params: { id: string } }) 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <Link href={`/patients/${params.id}`}>
+        <Link href={`${SPECIALTY.basePath}/patients/${params.id}`}>
           <Button variant="ghost" size="sm">
             ← Back to chart
           </Button>
@@ -53,6 +57,13 @@ export default async function VisitPage({ params }: { params: { id: string } }) 
       <VisitWorkspace
         patientId={params.id}
         patientName={humanName(patient.name)}
+        basePath={SPECIALTY.basePath}
+        specialtyKey={SPECIALTY.key}
+        practitionerRef={SPECIALTY.practitionerRef}
+        practitionerDisplay={SPECIALTY.practitionerDisplay}
+        organizationRef={SPECIALTY.organizationRef}
+        medicationCatalog={medicationCatalogFor(SPECIALTY.key)}
+        notePlaceholder={SPECIALTY.noteAssistPlaceholder}
         encounter={todaysEncounter ?? null}
         activeConditions={activeConditions.map((c) => c.code?.text ?? c.code?.coding?.[0]?.display ?? "Condition")}
         activeMedications={activeMedications.map(

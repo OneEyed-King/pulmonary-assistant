@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import type { Patient } from "@/lib/fhir-types";
+import type { SpecialtyTag } from "@/lib/specialty";
 
 const todayISO = () => new Date().toISOString().slice(0, 10);
 
@@ -38,7 +39,15 @@ function patientToDefaults(patient?: Patient): PatientFormValues {
   };
 }
 
-export function PatientForm({ patient }: { patient?: Patient }) {
+export function PatientForm({
+  patient,
+  basePath,
+  specialtyTag,
+}: {
+  patient?: Patient;
+  basePath: string;
+  specialtyTag: SpecialtyTag;
+}) {
   const router = useRouter();
   const isEdit = Boolean(patient?.id);
   const [submitError, setSubmitError] = React.useState<string | null>(null);
@@ -57,7 +66,11 @@ export function PatientForm({ patient }: { patient?: Patient }) {
     setSubmitting(true);
     setSubmitError(null);
 
+    // Spread the existing resource first (on edit) so fields this form doesn't touch — address,
+    // telecom, and critically meta.tag — survive the save instead of being silently dropped.
+    // meta.tag is always re-stamped explicitly to this app's specialty, so it can never drift.
     const resource: Patient = {
+      ...patient,
       resourceType: "Patient",
       ...(patient?.id ? { id: patient.id } : {}),
       name: [
@@ -69,6 +82,7 @@ export function PatientForm({ patient }: { patient?: Patient }) {
       ],
       gender: values.gender,
       birthDate: values.birthDate,
+      meta: { ...patient?.meta, tag: [specialtyTag] },
     };
 
     try {
@@ -84,7 +98,7 @@ export function PatientForm({ patient }: { patient?: Patient }) {
       }
 
       const saved: Patient = await res.json();
-      router.push(`/patients/${saved.id}`);
+      router.push(`${basePath}/patients/${saved.id}`);
       router.refresh();
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : String(err));

@@ -18,7 +18,7 @@ const reasonTone: Record<string, "red" | "amber" | "gray"> = {
   "no-visits-recorded": "gray",
 };
 
-export function CareGapsPanel({ gaps }: { gaps: PatientCareGap[] }) {
+export function CareGapsPanel({ gaps, basePath }: { gaps: PatientCareGap[]; basePath: string }) {
   // Patient-safety gaps (missed post-exacerbation follow-up) surface above routine overdue ones.
   const rank: Record<string, number> = { "post-exacerbation-followup": 0, "no-recent-visit": 1, "no-visits-recorded": 2 };
   const sorted = [...gaps].sort((a, b) => rank[a.gap.reason] - rank[b.gap.reason]);
@@ -41,7 +41,7 @@ export function CareGapsPanel({ gaps }: { gaps: PatientCareGap[] }) {
         {sorted.map(({ patient, gap }) => (
           <Link
             key={patient.id}
-            href={`/patients/${patient.id}`}
+            href={`${basePath}/patients/${patient.id}`}
             className="block rounded-md border border-border p-2.5 transition-colors hover:bg-muted/60"
           >
             <div className="flex items-center justify-between gap-2">

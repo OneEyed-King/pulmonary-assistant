@@ -1,0 +1,385 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:de0c1000-1000-4b11-8b11-000000000101",
+      "resource": {
+        "resourceType": "Encounter",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "410456007",
+                "display": "Dental care (regime/therapy)"
+              }
+            ],
+            "text": "Routine dental cleaning & exam"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/de111111-1111-4111-8111-000000000001"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/2011",
+              "display": "Dr. Naomi Ortiz"
+            }
+          }
+        ],
+        "serviceProvider": {
+          "reference": "Organization/2010"
+        },
+        "period": {
+          "start": "2026-06-10T09:00:00-04:00",
+          "end": "2026-06-10T09:45:00-04:00"
+        }
+      },
+      "request": {
+        "method": "POST",
+        "url": "Encounter"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c1000-1000-4b11-8b11-000000000102",
+      "resource": {
+        "resourceType": "Condition",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-problem-list-item"
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "resolved"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "263877003",
+              "display": "Mild chronic gingivitis"
+            }
+          ],
+          "text": "Mild gingivitis, resolved with improved hygiene"
+        },
+        "subject": {
+          "reference": "Patient/de111111-1111-4111-8111-000000000001"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c1000-1000-4b11-8b11-000000000101"
+        },
+        "onsetDateTime": "2025-11-01",
+        "abatementDateTime": "2026-06-10",
+        "recordedDate": "2026-06-10",
+        "note": [
+          {
+            "text": "Localized marginal gingivitis at last visit; resolved with improved brushing/flossing technique."
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Condition"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c1000-1000-4b11-8b11-000000000103",
+      "resource": {
+        "resourceType": "Observation",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "72152-4",
+              "display": "Periodontal screening and recording (PSR) score"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/de111111-1111-4111-8111-000000000001"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c1000-1000-4b11-8b11-000000000101"
+        },
+        "effectiveDateTime": "2026-06-10T09:15:00-04:00",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "281151006",
+              "display": "Healthy periodontium"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "POST",
+        "url": "Observation"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c1000-1000-4b11-8b11-000000000104",
+      "resource": {
+        "resourceType": "Observation",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "Plaque index (O'Leary)"
+        },
+        "subject": {
+          "reference": "Patient/de111111-1111-4111-8111-000000000001"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c1000-1000-4b11-8b11-000000000101"
+        },
+        "effectiveDateTime": "2026-06-10T09:15:00-04:00",
+        "valueQuantity": {
+          "value": 8,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Observation"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c1000-1000-4b11-8b11-000000000130",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "RAD",
+                "display": "Radiology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "Bitewing radiographs (2 films)"
+        },
+        "subject": {
+          "reference": "Patient/de111111-1111-4111-8111-000000000001"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c1000-1000-4b11-8b11-000000000101"
+        },
+        "effectiveDateTime": "2026-06-10T09:30:00-04:00",
+        "issued": "2026-06-10T09:45:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/2011",
+            "display": "Dr. Naomi Ortiz"
+          }
+        ],
+        "conclusion": "No interproximal caries. No significant bone loss. Healthy dentition overall."
+      },
+      "request": {
+        "method": "POST",
+        "url": "DiagnosticReport"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c1000-1000-4b11-8b11-000000000140",
+      "resource": {
+        "resourceType": "Composition",
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11506-3",
+              "display": "Progress note"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/de111111-1111-4111-8111-000000000001"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c1000-1000-4b11-8b11-000000000101"
+        },
+        "date": "2026-06-10T09:45:00-04:00",
+        "author": [
+          {
+            "reference": "Practitioner/2011",
+            "display": "Dr. Naomi Ortiz"
+          }
+        ],
+        "title": "Routine Cleaning & Exam",
+        "section": [
+          {
+            "title": "Subjective",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns='http://www.w3.org/1999/xhtml'>Patient presents for routine 6-month cleaning. No pain, no bleeding on brushing. Reports improved flossing habits since last visit.</div>"
+            }
+          },
+          {
+            "title": "Objective",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns='http://www.w3.org/1999/xhtml'>PSR score: healthy periodontium all sextants. Plaque index 8% (excellent). Bitewings show no interproximal caries. Prior mild gingivitis resolved.</div>"
+            }
+          },
+          {
+            "title": "Assessment",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns='http://www.w3.org/1999/xhtml'>Healthy dentition and periodontium. No active disease.</div>"
+            }
+          },
+          {
+            "title": "Plan",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns='http://www.w3.org/1999/xhtml'>Prophylaxis performed. Continue current home care. Recall in 6 months.</div>"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Composition"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c1000-1000-4b11-8b11-000000000110",
+      "resource": {
+        "resourceType": "Condition",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "resolved"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "80967001",
+              "display": "Dental caries"
+            }
+          ],
+          "text": "Dental caries, restored with composite filling (prior to this practice)"
+        },
+        "subject": {
+          "reference": "Patient/de111111-1111-4111-8111-000000000001"
+        },
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "system": "https://pulmolens.app/fhir/tooth",
+                "code": "3",
+                "display": "Tooth #3 (Upper Right 1st Molar)"
+              }
+            ]
+          }
+        ],
+        "onsetDateTime": "2019-06-01",
+        "abatementDateTime": "2019-08-01",
+        "recordedDate": "2026-06-10",
+        "note": [
+          {
+            "text": "Existing composite restoration noted on exam, from prior dental office. Intact, no recurrent decay."
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Condition"
+      }
+    }
+  ]
+}

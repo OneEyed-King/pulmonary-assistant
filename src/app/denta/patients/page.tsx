@@ -9,6 +9,9 @@ import { Card } from "@/components/ui/card";
 import { TodaySchedule } from "@/components/today-schedule";
 import { CareGapsPanel } from "@/components/care-gaps-panel";
 import { Plus, Search, ChevronRight } from "lucide-react";
+import { SPECIALTIES } from "@/lib/specialty";
+
+const SPECIALTY = SPECIALTIES.denta;
 
 export const dynamic = "force-dynamic";
 
@@ -23,7 +26,7 @@ function todayISO(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
-export default async function PatientsPage({
+export default async function DentaPatientsPage({
   searchParams,
 }: {
   searchParams: { q?: string };
@@ -34,16 +37,15 @@ export default async function PatientsPage({
   let careGaps: Awaited<ReturnType<typeof getCareGaps>> = [];
 
   try {
-    patients = await getPatients(q);
+    patients = await getPatients(q, SPECIALTY.tag);
   } catch (err) {
     error = err instanceof Error ? err.message : String(err);
   }
 
   if (!error) {
     try {
-      careGaps = await getCareGaps();
+      careGaps = await getCareGaps(SPECIALTY.tag);
     } catch {
-      // Non-critical panel — if this fails, just show nothing rather than breaking the homepage.
       careGaps = [];
     }
   }
@@ -53,7 +55,7 @@ export default async function PatientsPage({
       <div className="space-y-6">
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">PulmoLens</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">DentaLens</p>
             <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight text-gray-900">
               {greeting()}, Doctor
             </h1>
@@ -67,7 +69,7 @@ export default async function PatientsPage({
               )}
             </p>
           </div>
-          <Link href="/patients/new">
+          <Link href={`${SPECIALTY.basePath}/patients/new`}>
             <Button>
               <Plus className="h-4 w-4" />
               Add Patient
@@ -75,7 +77,7 @@ export default async function PatientsPage({
           </Link>
         </div>
 
-        <form className="flex max-w-lg gap-2" action="/patients">
+        <form className="flex max-w-lg gap-2" action={`${SPECIALTY.basePath}/patients`}>
           <div className="relative flex-1">
             <Search className="pointer-events-none absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
@@ -89,7 +91,7 @@ export default async function PatientsPage({
             Search
           </Button>
           {q && (
-            <Link href="/patients">
+            <Link href={`${SPECIALTY.basePath}/patients`}>
               <Button type="button" variant="ghost" className="rounded-full">
                 Clear
               </Button>
@@ -111,17 +113,19 @@ export default async function PatientsPage({
               {q ? "Search results" : "All patients"}
             </p>
             {patients.length === 0 && (
-              <Card className="p-8 text-center text-sm text-muted-foreground">No patients found.</Card>
+              <Card className="p-8 text-center text-sm text-muted-foreground">
+                No dental patients yet — add one to get started.
+              </Card>
             )}
             {patients.map((p) => {
               const name = humanName(p.name);
               const age = calculateAge(p.birthDate);
               return (
                 <Card key={p.id} className="group flex items-center gap-4 p-4 transition-shadow hover:shadow-md">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary/10 font-display text-sm font-medium text-primary">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 font-display text-sm font-medium text-emerald-600">
                     {initials(name)}
                   </div>
-                  <Link href={`/patients/${p.id}`} className="min-w-0 flex-1">
+                  <Link href={`${SPECIALTY.basePath}/patients/${p.id}`} className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
                       <span className="truncate font-display text-base font-medium text-gray-900">{name}</span>
                       <Badge tone={p.gender === "female" ? "blue" : p.gender === "male" ? "default" : "gray"}>
@@ -134,14 +138,14 @@ export default async function PatientsPage({
                     </div>
                   </Link>
                   <Link
-                    href={`/patients/${p.id}/edit`}
+                    href={`${SPECIALTY.basePath}/patients/${p.id}/edit`}
                     className="opacity-0 transition-opacity group-hover:opacity-100"
                   >
                     <Button variant="outline" size="sm">
                       Edit
                     </Button>
                   </Link>
-                  <Link href={`/patients/${p.id}`}>
+                  <Link href={`${SPECIALTY.basePath}/patients/${p.id}`}>
                     <ChevronRight className="h-4 w-4 text-muted-foreground" />
                   </Link>
                 </Card>
@@ -152,8 +156,8 @@ export default async function PatientsPage({
       </div>
 
       <aside className="space-y-4 lg:sticky lg:top-4">
-        <TodaySchedule date={todayISO()} />
-        <CareGapsPanel gaps={careGaps} />
+        <TodaySchedule date={todayISO()} basePath={SPECIALTY.basePath} tag={SPECIALTY.tag} />
+        <CareGapsPanel gaps={careGaps} basePath={SPECIALTY.basePath} />
       </aside>
     </div>
   );

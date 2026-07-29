@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, ArrowRight } from "lucide-react";
 import { getAppointmentsForDate, getPatient } from "@/lib/fhir";
 import { humanName } from "@/lib/fhir-types";
+import type { SpecialtyTag } from "@/lib/specialty";
 
 function patientRef(participants: { actor?: { reference?: string } }[]): string | undefined {
   const p = participants.find((p) => p.actor?.reference?.startsWith("Patient/"));
@@ -14,11 +15,19 @@ function formatTime(iso?: string): string {
   return new Date(iso).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 }
 
-export async function TodaySchedule({ date }: { date: string }) {
+export async function TodaySchedule({
+  date,
+  basePath,
+  tag,
+}: {
+  date: string;
+  basePath: string;
+  tag?: SpecialtyTag;
+}) {
   let appointments: Awaited<ReturnType<typeof getAppointmentsForDate>> = [];
   let error: string | null = null;
   try {
-    appointments = await getAppointmentsForDate(date);
+    appointments = await getAppointmentsForDate(date, tag);
   } catch (err) {
     error = err instanceof Error ? err.message : String(err);
   }
@@ -51,7 +60,7 @@ export async function TodaySchedule({ date }: { date: string }) {
         {valid.map(({ appointment, patientId, name }) => (
           <Link
             key={appointment.id}
-            href={`/patients/${patientId}/visit`}
+            href={`${basePath}/patients/${patientId}/visit`}
             className="group flex items-center justify-between gap-2 rounded-md px-2 py-2 hover:bg-muted"
           >
             <div className="flex items-baseline gap-2.5">

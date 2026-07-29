@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrendingDown, TrendingUp, Minus, FlaskConical } from "lucide-react";
 import { cn, formatDate } from "@/lib/utils";
-import { computeMetricComparisons } from "@/lib/clinical-changes";
+import { computeMetricComparisons, PULMO_METRICS, type MetricConfig } from "@/lib/clinical-changes";
 import type { Observation } from "@/lib/fhir-types";
 
 // Softer, warmer severity tints — muted rose instead of a punchy red, and a lighter
@@ -18,8 +18,16 @@ const severityBg = {
   significant: "bg-rose-50/60",
 };
 
-export function LabComparisonCards({ observations }: { observations: Observation[] }) {
-  const comparisons = computeMetricComparisons(observations);
+export function LabComparisonCards({
+  observations,
+  metrics = PULMO_METRICS,
+  title = "Laboratory — Current vs Previous",
+}: {
+  observations: Observation[];
+  metrics?: MetricConfig[];
+  title?: string;
+}) {
+  const comparisons = computeMetricComparisons(observations, metrics);
 
   return (
     <Card>
@@ -27,7 +35,7 @@ export function LabComparisonCards({ observations }: { observations: Observation
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-1.5">
             <FlaskConical className="h-4 w-4 text-primary" />
-            Laboratory — Current vs Previous
+            {title}
           </CardTitle>
           <div className="flex items-center gap-3 text-xs text-muted-foreground">
             <span className="flex items-center gap-1">

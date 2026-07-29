@@ -5,7 +5,7 @@
     {
       "resource": {
         "resourceType": "Patient",
-        "id": "4f083ce3-f12b-bb4b-7353-e17f0cd55b0a",
+        "id": "de111111-1111-4111-8111-000000000001",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
@@ -13,7 +13,7 @@
           "tag": [
             {
               "system": "https://pulmolens.app/fhir/specialty",
-              "code": "pulmonology"
+              "code": "dental"
             }
           ]
         },
@@ -25,122 +25,13 @@
                 "url": "ombCategory",
                 "valueCoding": {
                   "system": "urn:oid:2.16.840.1.113883.6.238",
-                  "code": "2106-3",
-                  "display": "White"
+                  "code": "2131-1",
+                  "display": "Other Race"
                 }
               },
               {
                 "url": "text",
-                "valueString": "White"
-              }
-            ]
-          },
-          {
-            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
-            "extension": [
-              {
-                "url": "ombCategory",
-                "valueCoding": {
-                  "system": "urn:oid:2.16.840.1.113883.6.238",
-                  "code": "2186-5",
-                  "display": "Not Hispanic or Latino"
-                }
-              },
-              {
-                "url": "text",
-                "valueString": "Not Hispanic or Latino"
-              }
-            ]
-          },
-          {
-            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
-            "valueCode": "M"
-          }
-        ],
-        "identifier": [
-          {
-            "system": "urn:medblocks",
-            "value": "406b4c21-c699-43b1-b610-b618776bcc87"
-          }
-        ],
-        "name": [
-          {
-            "use": "official",
-            "family": "Walter",
-            "given": [
-              "Ezekiel",
-              "Leslie"
-            ],
-            "prefix": [
-              "Mr."
-            ]
-          }
-        ],
-        "telecom": [
-          {
-            "system": "phone",
-            "value": "555-154-3309",
-            "use": "home"
-          }
-        ],
-        "gender": "male",
-        "birthDate": "1998-08-02",
-        "address": [
-          {
-            "line": [
-              "332 Schulist Underpass"
-            ],
-            "city": "Watertown",
-            "state": "MA",
-            "postalCode": "02472",
-            "country": "US"
-          }
-        ],
-        "maritalStatus": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
-              "code": "S",
-              "display": "Never Married"
-            }
-          ]
-        }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Patient/4f083ce3-f12b-bb4b-7353-e17f0cd55b0a"
-      }
-    },
-    {
-      "resource": {
-        "resourceType": "Patient",
-        "id": "c86c400e-ff88-a1e3-2e23-caa4d8311f47",
-        "meta": {
-          "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
-          ],
-          "tag": [
-            {
-              "system": "https://pulmolens.app/fhir/specialty",
-              "code": "pulmonology"
-            }
-          ]
-        },
-        "extension": [
-          {
-            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
-            "extension": [
-              {
-                "url": "ombCategory",
-                "valueCoding": {
-                  "system": "urn:oid:2.16.840.1.113883.6.238",
-                  "code": "2106-3",
-                  "display": "White"
-                }
-              },
-              {
-                "url": "text",
-                "valueString": "White"
+                "valueString": "Other Race"
               }
             ]
           },
@@ -163,276 +54,45 @@
           },
           {
             "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
-            "valueCode": "M"
-          }
-        ],
-        "identifier": [
-          {
-            "system": "urn:medblocks",
-            "value": "5c720d66-8916-4754-8da6-b5300e1feed7"
-          }
-        ],
-        "name": [
-          {
-            "use": "official",
-            "family": "Montero",
-            "given": [
-              "Cristobal",
-              "Alfredo"
-            ],
-            "prefix": [
-              "Mr."
-            ]
-          }
-        ],
-        "telecom": [
-          {
-            "system": "phone",
-            "value": "555-391-2537",
-            "use": "home"
-          }
-        ],
-        "gender": "male",
-        "birthDate": "1946-09-20",
-        "address": [
-          {
-            "line": [
-              "479 Haag Camp"
-            ],
-            "city": "Saugus",
-            "state": "MA",
-            "postalCode": "01906",
-            "country": "US"
-          }
-        ],
-        "maritalStatus": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
-              "code": "M",
-              "display": "Married"
-            }
-          ]
-        },
-        "communication": [
-          {
-            "language": {
-              "coding": [
-                {
-                  "system": "urn:ietf:bcp:47",
-                  "code": "es",
-                  "display": "Spanish"
-                }
-              ]
-            }
-          }
-        ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Patient/c86c400e-ff88-a1e3-2e23-caa4d8311f47"
-      }
-    },
-    {
-      "resource": {
-        "resourceType": "Patient",
-        "id": "eb5910f1-26e6-bc6f-b300-716eae678d6f",
-        "meta": {
-          "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
-          ],
-          "tag": [
-            {
-              "system": "https://pulmolens.app/fhir/specialty",
-              "code": "pulmonology"
-            }
-          ]
-        },
-        "extension": [
-          {
-            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
-            "extension": [
-              {
-                "url": "ombCategory",
-                "valueCoding": {
-                  "system": "urn:oid:2.16.840.1.113883.6.238",
-                  "code": "2106-3",
-                  "display": "White"
-                }
-              },
-              {
-                "url": "text",
-                "valueString": "White"
-              }
-            ]
-          },
-          {
-            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
-            "extension": [
-              {
-                "url": "ombCategory",
-                "valueCoding": {
-                  "system": "urn:oid:2.16.840.1.113883.6.238",
-                  "code": "2186-5",
-                  "display": "Not Hispanic or Latino"
-                }
-              },
-              {
-                "url": "text",
-                "valueString": "Not Hispanic or Latino"
-              }
-            ]
-          },
-          {
-            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
             "valueCode": "F"
           }
         ],
         "identifier": [
           {
             "system": "urn:medblocks",
-            "value": "0a2679ab-7eba-4e85-be4a-cb4217d2c240"
+            "value": "8f1a2b3c-1111-4111-8111-000000000001"
           }
         ],
         "name": [
           {
             "use": "official",
-            "family": "Nikolaus",
+            "family": "Reyes",
             "given": [
-              "Larissa",
-              "Jackeline"
+              "Sofia",
+              "Marie"
             ],
             "prefix": [
-              "Mrs."
+              "Ms."
             ]
           }
         ],
         "telecom": [
           {
             "system": "phone",
-            "value": "555-315-9914",
+            "value": "555-402-7711",
             "use": "home"
           }
         ],
         "gender": "female",
-        "birthDate": "1994-11-13",
+        "birthDate": "1995-03-14",
         "address": [
           {
             "line": [
-              "861 Swift Lock"
+              "22 Highland Ave"
             ],
-            "city": "Haverhill",
+            "city": "Somerville",
             "state": "MA",
-            "postalCode": "01832",
-            "country": "US"
-          }
-        ],
-        "maritalStatus": {
-          "coding": [
-            {
-              "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
-              "code": "M",
-              "display": "Married"
-            }
-          ]
-        }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Patient/eb5910f1-26e6-bc6f-b300-716eae678d6f"
-      }
-    },
-    {
-      "resource": {
-        "resourceType": "Patient",
-        "id": "b7e4a210-3f6c-4e01-9a52-104000000001",
-        "meta": {
-          "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
-          ],
-          "tag": [
-            {
-              "system": "https://pulmolens.app/fhir/specialty",
-              "code": "pulmonology"
-            }
-          ]
-        },
-        "extension": [
-          {
-            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
-            "extension": [
-              {
-                "url": "ombCategory",
-                "valueCoding": {
-                  "system": "urn:oid:2.16.840.1.113883.6.238",
-                  "code": "2106-3",
-                  "display": "White"
-                }
-              },
-              {
-                "url": "text",
-                "valueString": "White"
-              }
-            ]
-          },
-          {
-            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
-            "extension": [
-              {
-                "url": "ombCategory",
-                "valueCoding": {
-                  "system": "urn:oid:2.16.840.1.113883.6.238",
-                  "code": "2186-5",
-                  "display": "Not Hispanic or Latino"
-                }
-              },
-              {
-                "url": "text",
-                "valueString": "Not Hispanic or Latino"
-              }
-            ]
-          },
-          {
-            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
-            "valueCode": "M"
-          }
-        ],
-        "identifier": [
-          {
-            "system": "urn:medblocks",
-            "value": "b7e4a210-3f6c-4e01-9a52-104000000001"
-          }
-        ],
-        "name": [
-          {
-            "use": "official",
-            "family": "Feldman",
-            "given": [
-              "Marcus",
-              "Elijah"
-            ],
-            "prefix": [
-              "Mr."
-            ]
-          }
-        ],
-        "telecom": [
-          {
-            "system": "phone",
-            "value": "555-204-7761",
-            "use": "home"
-          }
-        ],
-        "gender": "male",
-        "birthDate": "1990-03-22",
-        "address": [
-          {
-            "line": [
-              "145 Birchwood Ave"
-            ],
-            "city": "Malden",
-            "state": "MA",
-            "postalCode": "02148",
+            "postalCode": "02144",
             "country": "US"
           }
         ],
@@ -448,13 +108,13 @@
       },
       "request": {
         "method": "PUT",
-        "url": "Patient/b7e4a210-3f6c-4e01-9a52-104000000001"
+        "url": "Patient/de111111-1111-4111-8111-000000000001"
       }
     },
     {
       "resource": {
         "resourceType": "Patient",
-        "id": "c39f7b52-8e1d-4a6f-9c3a-105000000001",
+        "id": "de222222-2222-4222-8222-000000000002",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
@@ -462,7 +122,225 @@
           "tag": [
             {
               "system": "https://pulmolens.app/fhir/specialty",
-              "code": "pulmonology"
+              "code": "dental"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "code": "2106-3",
+                  "display": "White"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "White"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "code": "2186-5",
+                  "display": "Not Hispanic or Latino"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Not Hispanic or Latino"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueCode": "M"
+          }
+        ],
+        "identifier": [
+          {
+            "system": "urn:medblocks",
+            "value": "8f1a2b3c-2222-4222-8222-000000000002"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Webb",
+            "given": [
+              "Marcus",
+              "Ellis"
+            ],
+            "prefix": [
+              "Mr."
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "555-660-3321",
+            "use": "home"
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1972-11-02",
+        "address": [
+          {
+            "line": [
+              "87 Willow Ct"
+            ],
+            "city": "Medford",
+            "state": "MA",
+            "postalCode": "02155",
+            "country": "US"
+          }
+        ],
+        "maritalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+              "code": "M",
+              "display": "Married"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/de222222-2222-4222-8222-000000000002"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "de333333-3333-4333-8333-000000000003",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+          ],
+          "tag": [
+            {
+              "system": "https://pulmolens.app/fhir/specialty",
+              "code": "dental"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "code": "2054-5",
+                  "display": "Black or African American"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Black or African American"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "code": "2186-5",
+                  "display": "Not Hispanic or Latino"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Not Hispanic or Latino"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueCode": "M"
+          }
+        ],
+        "identifier": [
+          {
+            "system": "urn:medblocks",
+            "value": "8f1a2b3c-3333-4333-8333-000000000003"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Brooks",
+            "given": [
+              "Aiden",
+              "Cole"
+            ],
+            "prefix": [
+              "Mr."
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "555-771-9082",
+            "use": "home"
+          }
+        ],
+        "gender": "male",
+        "birthDate": "2001-06-20",
+        "address": [
+          {
+            "line": [
+              "14 Lantern Way"
+            ],
+            "city": "Everett",
+            "state": "MA",
+            "postalCode": "02149",
+            "country": "US"
+          }
+        ],
+        "maritalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+              "code": "S",
+              "display": "Never Married"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/de333333-3333-4333-8333-000000000003"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "de444444-4444-4444-8444-000000000004",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+          ],
+          "tag": [
+            {
+              "system": "https://pulmolens.app/fhir/specialty",
+              "code": "dental"
             }
           ]
         },
@@ -509,13 +387,13 @@
         "identifier": [
           {
             "system": "urn:medblocks",
-            "value": "c39f7b52-8e1d-4a6f-9c3a-105000000001"
+            "value": "8f1a2b3c-4444-4444-8444-000000000004"
           }
         ],
         "name": [
           {
             "use": "official",
-            "family": "Anand",
+            "family": "Chandran",
             "given": [
               "Priya"
             ],
@@ -527,20 +405,20 @@
         "telecom": [
           {
             "system": "phone",
-            "value": "555-337-9042",
+            "value": "555-511-4420",
             "use": "home"
           }
         ],
         "gender": "female",
-        "birthDate": "1978-11-09",
+        "birthDate": "1988-09-05",
         "address": [
           {
             "line": [
-              "58 Meetinghouse Rd"
+              "301 Maple Grove"
             ],
-            "city": "Newton",
+            "city": "Arlington",
             "state": "MA",
-            "postalCode": "02458",
+            "postalCode": "02474",
             "country": "US"
           }
         ],
@@ -556,7 +434,116 @@
       },
       "request": {
         "method": "PUT",
-        "url": "Patient/c39f7b52-8e1d-4a6f-9c3a-105000000001"
+        "url": "Patient/de444444-4444-4444-8444-000000000004"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "de555555-5555-4555-8555-000000000005",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+          ],
+          "tag": [
+            {
+              "system": "https://pulmolens.app/fhir/specialty",
+              "code": "dental"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "code": "2106-3",
+                  "display": "White"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "White"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "code": "2186-5",
+                  "display": "Not Hispanic or Latino"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Not Hispanic or Latino"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueCode": "M"
+          }
+        ],
+        "identifier": [
+          {
+            "system": "urn:medblocks",
+            "value": "8f1a2b3c-5555-4555-8555-000000000005"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Higgins",
+            "given": [
+              "Walter",
+              "Odell"
+            ],
+            "prefix": [
+              "Mr."
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "555-889-2246",
+            "use": "home"
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1955-01-30",
+        "address": [
+          {
+            "line": [
+              "5 Orchard Ter"
+            ],
+            "city": "Malden",
+            "state": "MA",
+            "postalCode": "02148",
+            "country": "US"
+          }
+        ],
+        "maritalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+              "code": "W",
+              "display": "Widowed"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/de555555-5555-4555-8555-000000000005"
       }
     }
   ]

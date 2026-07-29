@@ -1,0 +1,130 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:de0b1000-1000-4a11-8a11-000000000901",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "2010",
+        "active": true,
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                "code": "prov",
+                "display": "Healthcare Provider"
+              }
+            ]
+          }
+        ],
+        "name": "Beacon Family Dental",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "555-208-6600",
+            "use": "work"
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "12 Molar Street"
+            ],
+            "city": "Somerville",
+            "state": "MA",
+            "postalCode": "02143",
+            "country": "US"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/2010"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0b1000-1000-4a11-8a11-000000000902",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "2011",
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "family": "Ortiz",
+            "given": [
+              "Naomi"
+            ],
+            "prefix": [
+              "Dr."
+            ],
+            "suffix": [
+              "DDS"
+            ]
+          }
+        ],
+        "gender": "female",
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://nucc.org/provider-taxonomy",
+                  "code": "1223G0001X",
+                  "display": "General Dentistry"
+                }
+              ],
+              "text": "General Dentist"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/2011"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0b1000-1000-4a11-8a11-000000000903",
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "2012",
+        "active": true,
+        "practitioner": {
+          "reference": "urn:uuid:de0b1000-1000-4a11-8a11-000000000902"
+        },
+        "organization": {
+          "reference": "urn:uuid:de0b1000-1000-4a11-8a11-000000000901"
+        },
+        "code": [
+          {
+            "coding": [
+              {
+                "system": "http://nucc.org/provider-taxonomy",
+                "code": "1223G0001X",
+                "display": "General Dentistry"
+              }
+            ]
+          }
+        ],
+        "specialty": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "394591006",
+                "display": "Dentistry"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "PractitionerRole/2012"
+      }
+    }
+  ]
+}

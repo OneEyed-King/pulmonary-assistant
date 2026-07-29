@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { buildNoteAssistPrompt, NOTE_ASSIST_SYSTEM_PROMPT, type NoteAssistContext } from "@/lib/note-assist";
+import { buildNoteAssistPrompt, noteAssistSystemPrompt, type NoteAssistContext } from "@/lib/note-assist";
+import type { SpecialtyKey } from "@/lib/specialty";
 
 export async function POST(req: NextRequest) {
-  const body = (await req.json()) as Partial<NoteAssistContext>;
+  const body = (await req.json()) as Partial<NoteAssistContext> & { specialtyKey?: SpecialtyKey };
   const shorthand = body.shorthand?.trim();
   if (!shorthand) {
     return NextResponse.json({ error: "shorthand is required" }, { status: 400 });
@@ -37,7 +38,7 @@ export async function POST(req: NextRequest) {
         response_format: { type: "json_object" },
         temperature: 0.2,
         messages: [
-          { role: "system", content: NOTE_ASSIST_SYSTEM_PROMPT },
+          { role: "system", content: noteAssistSystemPrompt(body.specialtyKey) },
           { role: "user", content: prompt },
         ],
       }),

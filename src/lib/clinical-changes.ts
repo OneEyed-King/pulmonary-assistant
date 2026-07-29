@@ -1,5 +1,5 @@
 import type { Observation } from "./fhir-types";
-import { findByCode, sortByDate, LOINC } from "./observations";
+import { findByCode, sortByDate, LOINC, DENTAL_CODES } from "./observations";
 
 export type Severity = "stable" | "attention" | "significant";
 export type Direction = "up" | "down" | "flat";
@@ -18,7 +18,7 @@ export interface MetricComparison {
   good: "higher" | "lower";
 }
 
-interface MetricConfig {
+export interface MetricConfig {
   key: string;
   label: string;
   codes: string[];
@@ -29,7 +29,7 @@ interface MetricConfig {
   referenceText?: string;
 }
 
-const METRICS: MetricConfig[] = [
+export const PULMO_METRICS: MetricConfig[] = [
   { key: "fev1", label: "FEV1", codes: LOINC.FEV1, unit: "L", good: "higher" },
   { key: "fvc", label: "FVC", codes: LOINC.FVC, unit: "L", good: "higher" },
   {
@@ -57,6 +57,36 @@ const METRICS: MetricConfig[] = [
   { key: "crp", label: "CRP", codes: LOINC.CRP, unit: "mg/L", good: "lower", badAbove: 10, referenceText: "Ref < 10 mg/L" },
 ];
 
+export const DENTAL_METRICS: MetricConfig[] = [
+  {
+    key: "pocket-depth",
+    label: "Avg. Pocket Depth",
+    codes: DENTAL_CODES.POCKET_DEPTH,
+    unit: "mm",
+    good: "lower",
+    badAbove: 4,
+    referenceText: "Ref ≤ 3mm",
+  },
+  {
+    key: "bop",
+    label: "Bleeding on Probing",
+    codes: DENTAL_CODES.BLEEDING_ON_PROBING,
+    unit: "%",
+    good: "lower",
+    badAbove: 15,
+    referenceText: "Ref < 15%",
+  },
+  {
+    key: "plaque",
+    label: "Plaque Index",
+    codes: DENTAL_CODES.PLAQUE_INDEX,
+    unit: "%",
+    good: "lower",
+    badAbove: 20,
+    referenceText: "Ref < 20%",
+  },
+];
+
 function classify(config: MetricConfig, prev?: number, curr?: number): { direction: Direction; severity: Severity } {
   let direction: Direction = "flat";
   let severity: Severity = "stable";
@@ -80,11 +110,16 @@ function classify(config: MetricConfig, prev?: number, curr?: number): { directi
   return { direction, severity };
 }
 
-/** Computes current-vs-previous comparisons for every key pulmonary metric with recorded data. */
-export function computeMetricComparisons(observations: Observation[]): MetricComparison[] {
+/** Computes current-vs-previous comparisons for every key metric (pulmonary by default, or
+ * whatever metric set is passed in — e.g. DENTAL_METRICS for periodontal charting) with
+ * recorded data. */
+export function computeMetricComparisons(
+  observations: Observation[],
+  metrics: MetricConfig[] = PULMO_METRICS
+): MetricComparison[] {
   const results: MetricComparison[] = [];
 
-  for (const config of METRICS) {
+  for (const config of metrics) {
     const points = sortByDate(findByCode(observations, config.codes)).filter(
       (o) => o.valueQuantity?.value !== undefined
     );

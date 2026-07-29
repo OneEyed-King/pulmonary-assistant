@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LayoutGrid, Activity, FlaskConical, Pill, History } from "lucide-react";
+import { LayoutGrid, Activity, Stethoscope, Pill, History } from "lucide-react";
 import { getPatientChart } from "@/lib/fhir";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -20,14 +20,19 @@ import { LabReportsTable } from "@/components/lab-reports-table";
 import { TrendChart } from "@/components/trend-chart";
 import { PhysicianBrief } from "@/components/physician-brief";
 import { ClinicalChangesList } from "@/components/clinical-changes-list";
-import { LOINC } from "@/lib/observations";
+import { Odontogram } from "@/components/odontogram";
+import { DENTAL_METRICS } from "@/lib/clinical-changes";
+import { DENTAL_CODES } from "@/lib/observations";
 import { humanName } from "@/lib/fhir-types";
+import { SPECIALTIES } from "@/lib/specialty";
+
+const SPECIALTY = SPECIALTIES.denta;
 
 export const dynamic = "force-dynamic";
 
 const navItemClass = "w-full justify-start px-3 py-2";
 
-export default async function PatientDetailPage({ params }: { params: { id: string } }) {
+export default async function DentaPatientDetailPage({ params }: { params: { id: string } }) {
   let chart: Awaited<ReturnType<typeof getPatientChart>>;
   try {
     chart = await getPatientChart(params.id);
@@ -48,18 +53,18 @@ export default async function PatientDetailPage({ params }: { params: { id: stri
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between">
-        <Link href="/patients">
+        <Link href={`${SPECIALTY.basePath}/patients`}>
           <Button variant="ghost" size="sm">
             ← All patients
           </Button>
         </Link>
         <div className="flex gap-2">
-          <Link href={`/patients/${patient.id}/edit`}>
+          <Link href={`${SPECIALTY.basePath}/patients/${patient.id}/edit`}>
             <Button variant="outline" size="sm">
               Edit patient
             </Button>
           </Link>
-          <Link href={`/patients/${patient.id}/visit`}>
+          <Link href={`${SPECIALTY.basePath}/patients/${patient.id}/visit`}>
             <Button size="sm">Start Visit</Button>
           </Link>
         </div>
@@ -74,8 +79,8 @@ export default async function PatientDetailPage({ params }: { params: { id: stri
           <TabsTrigger value="timeline" icon={<Activity className="h-4 w-4 shrink-0" />} className={navItemClass}>
             Timeline
           </TabsTrigger>
-          <TabsTrigger value="labs" icon={<FlaskConical className="h-4 w-4 shrink-0" />} className={navItemClass}>
-            Labs
+          <TabsTrigger value="odontogram" icon={<Stethoscope className="h-4 w-4 shrink-0" />} className={navItemClass}>
+            Odontogram
           </TabsTrigger>
           <TabsTrigger value="medications" icon={<Pill className="h-4 w-4 shrink-0" />} className={navItemClass}>
             Medications
@@ -90,8 +95,21 @@ export default async function PatientDetailPage({ params }: { params: { id: stri
 
           <TabsContent value="overview" className="space-y-5">
             <PhysicianBrief patientId={patient.id!} />
-            <AttentionTiles observations={observations} encounters={encounters} medications={medications} />
-            <ClinicalChangesList observations={observations} encounters={encounters} medications={medications} />
+            <AttentionTiles
+              observations={observations}
+              encounters={encounters}
+              medications={medications}
+              metrics={DENTAL_METRICS}
+              emergencyLabel="Trauma/urgent visits · 6mo"
+              emergencyDescriptionActive="Unfollowed dental trauma or urgent visit — confirm splint/pulp follow-up is scheduled."
+              emergencyDescriptionClear="No trauma or urgent dental visits in the last 6 months."
+            />
+            <ClinicalChangesList
+              observations={observations}
+              encounters={encounters}
+              medications={medications}
+              metrics={DENTAL_METRICS}
+            />
             <VitalsPanel observations={observations} />
             <div className="grid gap-4 md:grid-cols-2">
               <ConditionsList conditions={conditions} />
@@ -113,35 +131,31 @@ export default async function PatientDetailPage({ params }: { params: { id: stri
             <MedicationTimeline medications={medications} />
           </TabsContent>
 
-          <TabsContent value="labs" className="space-y-4">
-            <LabComparisonCards observations={observations} />
+          <TabsContent value="odontogram" className="space-y-4">
+            <Odontogram conditions={conditions} />
+            <LabComparisonCards
+              observations={observations}
+              metrics={DENTAL_METRICS}
+              title="Periodontal — Current vs Previous"
+            />
             <div className="grid gap-4 md:grid-cols-2">
               <TrendChart
-                title="Spirometry — FEV1 / FVC"
+                title="Periodontal Pocket Depth"
                 observations={observations}
-                unitLabel="L"
-                series={[
-                  { label: "FEV1", codes: LOINC.FEV1, color: "#2563eb" },
-                  { label: "FVC", codes: LOINC.FVC, color: "#7c3aed" },
-                ]}
+                unitLabel="mm"
+                series={[{ label: "Avg. Pocket Depth", codes: DENTAL_CODES.POCKET_DEPTH, color: "#dc2626" }]}
               />
               <TrendChart
-                title="Peak Expiratory Flow"
-                observations={observations}
-                unitLabel="L/min"
-                series={[{ label: "PEF", codes: LOINC.PEF, color: "#059669" }]}
-              />
-              <TrendChart
-                title="Asthma Control Test (ACT) Score"
-                observations={observations}
-                unitLabel="score"
-                series={[{ label: "ACT", codes: LOINC.ACT_SCORE, color: "#d97706" }]}
-              />
-              <TrendChart
-                title="Oxygen Saturation"
+                title="Bleeding on Probing"
                 observations={observations}
                 unitLabel="%"
-                series={[{ label: "SpO2", codes: LOINC.SPO2, color: "#dc2626" }]}
+                series={[{ label: "Bleeding on Probing", codes: DENTAL_CODES.BLEEDING_ON_PROBING, color: "#d97706" }]}
+              />
+              <TrendChart
+                title="Plaque Index"
+                observations={observations}
+                unitLabel="%"
+                series={[{ label: "Plaque Index", codes: DENTAL_CODES.PLAQUE_INDEX, color: "#059669" }]}
               />
             </div>
             <LabReportsTable
@@ -166,7 +180,12 @@ export default async function PatientDetailPage({ params }: { params: { id: stri
         </div>
 
         <aside className="space-y-4 lg:sticky lg:top-4">
-          <ClinicalAlerts observations={observations} encounters={encounters} medications={medications} />
+          <ClinicalAlerts
+            observations={observations}
+            encounters={encounters}
+            medications={medications}
+            metrics={DENTAL_METRICS}
+          />
         </aside>
       </Tabs>
     </div>

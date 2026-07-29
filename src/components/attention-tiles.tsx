@@ -1,7 +1,7 @@
 import { AlertTriangle, Siren, Pill } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Encounter, MedicationRequest, Observation } from "@/lib/fhir-types";
-import { computeMetricComparisons } from "@/lib/clinical-changes";
+import { computeMetricComparisons, PULMO_METRICS, type MetricConfig } from "@/lib/clinical-changes";
 
 const SIX_MONTHS_MS = 1000 * 60 * 60 * 24 * 182;
 const NINETY_DAYS_MS = 1000 * 60 * 60 * 24 * 90;
@@ -51,12 +51,20 @@ export function AttentionTiles({
   observations,
   encounters,
   medications,
+  metrics = PULMO_METRICS,
+  emergencyLabel = "ED visits · 6mo",
+  emergencyDescriptionActive = "Recurrent acute exacerbation — consider step-up therapy.",
+  emergencyDescriptionClear = "No emergency visits in the last 6 months.",
 }: {
   observations: Observation[];
   encounters: Encounter[];
   medications: MedicationRequest[];
+  metrics?: MetricConfig[];
+  emergencyLabel?: string;
+  emergencyDescriptionActive?: string;
+  emergencyDescriptionClear?: string;
 }) {
-  const comparisons = computeMetricComparisons(observations);
+  const comparisons = computeMetricComparisons(observations, metrics);
   const criticalCount = comparisons.filter((c) => c.severity === "significant").length;
 
   const now = Date.now();
@@ -89,13 +97,9 @@ export function AttentionTiles({
         />
         <Tile
           icon={Siren}
-          label="ED visits · 6mo"
+          label={emergencyLabel}
           count={edVisits.length}
-          description={
-            edVisits.length > 0
-              ? "Recurrent acute exacerbation — consider step-up therapy."
-              : "No emergency visits in the last 6 months."
-          }
+          description={edVisits.length > 0 ? emergencyDescriptionActive : emergencyDescriptionClear}
           tone={edVisits.length > 0 ? "amber" : "neutral"}
         />
         <Tile

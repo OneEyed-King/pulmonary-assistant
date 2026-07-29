@@ -63,3 +63,15 @@ export const LOINC = {
   IGE: ["19113-0"],
   CRP: ["1988-5"],
 };
+
+// Dental observation "codes" — mostly matched via text fallback since we don't have a fixed
+// LOINC panel for periodontal charting the way spirometry has one; findByCode() already falls
+// back to substring-matching o.code.text when no coding match is found, so these plain strings
+// work against the free-text codes used in the dental fixtures.
+export const DENTAL_CODES = {
+  PSR_SCORE: ["72152-4"],
+  POCKET_DEPTH: ["pocket depth"],
+  BLEEDING_ON_PROBING: ["bleeding on probing"],
+  PLAQUE_INDEX: ["plaque index"],
+  PAIN_SCORE: ["72514-3", "pain severity"],
+};

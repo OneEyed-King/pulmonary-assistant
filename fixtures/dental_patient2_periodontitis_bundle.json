@@ -1,0 +1,508 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:de0c2000-2000-4b22-8b22-000000000101",
+      "resource": {
+        "resourceType": "Encounter",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "3457005",
+                "display": "Patient encounter procedure"
+              }
+            ],
+            "text": "Periodontal maintenance visit"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/de222222-2222-4222-8222-000000000002"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/2011",
+              "display": "Dr. Naomi Ortiz"
+            }
+          }
+        ],
+        "serviceProvider": {
+          "reference": "Organization/2010"
+        },
+        "period": {
+          "start": "2025-10-14T13:00:00-04:00",
+          "end": "2025-10-14T14:00:00-04:00"
+        }
+      },
+      "request": {
+        "method": "POST",
+        "url": "Encounter"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c2000-2000-4b22-8b22-000000000102",
+      "resource": {
+        "resourceType": "Condition",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-problem-list-item"
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "78453001",
+              "display": "Chronic periodontitis"
+            }
+          ],
+          "text": "Chronic periodontitis, moderate (Stage II Grade B)"
+        },
+        "subject": {
+          "reference": "Patient/de222222-2222-4222-8222-000000000002"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c2000-2000-4b22-8b22-000000000101"
+        },
+        "onsetDateTime": "2022-04-01",
+        "recordedDate": "2025-10-14",
+        "note": [
+          {
+            "text": "Generalized moderate chronic periodontitis with 4-6mm pockets in posterior sextants and localized gingival recession."
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Condition"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c2000-2000-4b22-8b22-000000000103",
+      "resource": {
+        "resourceType": "Condition",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "109621004",
+              "display": "Gingival recession"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/de222222-2222-4222-8222-000000000002"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c2000-2000-4b22-8b22-000000000101"
+        },
+        "onsetDateTime": "2023-01-01",
+        "recordedDate": "2025-10-14"
+      },
+      "request": {
+        "method": "POST",
+        "url": "Condition"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c2000-2000-4b22-8b22-000000000104",
+      "resource": {
+        "resourceType": "Observation",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "Average periodontal pocket depth"
+        },
+        "subject": {
+          "reference": "Patient/de222222-2222-4222-8222-000000000002"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c2000-2000-4b22-8b22-000000000101"
+        },
+        "effectiveDateTime": "2025-10-14T13:15:00-04:00",
+        "valueQuantity": {
+          "value": 5,
+          "unit": "mm",
+          "system": "http://unitsofmeasure.org",
+          "code": "mm"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Observation"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c2000-2000-4b22-8b22-000000000105",
+      "resource": {
+        "resourceType": "Observation",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "Bleeding on probing (% of sites)"
+        },
+        "subject": {
+          "reference": "Patient/de222222-2222-4222-8222-000000000002"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c2000-2000-4b22-8b22-000000000101"
+        },
+        "effectiveDateTime": "2025-10-14T13:15:00-04:00",
+        "valueQuantity": {
+          "value": 34,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Observation"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c2000-2000-4b22-8b22-000000000130",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "RAD",
+                "display": "Radiology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "Full mouth periapical series"
+        },
+        "subject": {
+          "reference": "Patient/de222222-2222-4222-8222-000000000002"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c2000-2000-4b22-8b22-000000000101"
+        },
+        "effectiveDateTime": "2025-10-14T13:30:00-04:00",
+        "issued": "2025-10-14T14:00:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/2011",
+            "display": "Dr. Naomi Ortiz"
+          }
+        ],
+        "conclusion": "Horizontal bone loss 20-30% in posterior sextants bilaterally, consistent with moderate chronic periodontitis. No periapical pathology."
+      },
+      "request": {
+        "method": "POST",
+        "url": "DiagnosticReport"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c2000-2000-4b22-8b22-000000000140",
+      "resource": {
+        "resourceType": "Composition",
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11506-3",
+              "display": "Progress note"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/de222222-2222-4222-8222-000000000002"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c2000-2000-4b22-8b22-000000000101"
+        },
+        "date": "2025-10-14T14:00:00-04:00",
+        "author": [
+          {
+            "reference": "Practitioner/2011",
+            "display": "Dr. Naomi Ortiz"
+          }
+        ],
+        "title": "Periodontal Maintenance Visit",
+        "section": [
+          {
+            "title": "Subjective",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns='http://www.w3.org/1999/xhtml'>Patient reports occasional gum bleeding when brushing. Overdue for periodontal maintenance (last seen 8 months ago, recall interval is 3-4 months given periodontitis history).</div>"
+            }
+          },
+          {
+            "title": "Objective",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns='http://www.w3.org/1999/xhtml'>Average pocket depth 5mm, 34% bleeding on probing. Generalized moderate chronic periodontitis, localized recession. FMX shows 20-30% horizontal bone loss posterior sextants.</div>"
+            }
+          },
+          {
+            "title": "Assessment",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns='http://www.w3.org/1999/xhtml'>Chronic periodontitis, Stage II Grade B, currently under-maintained.</div>"
+            }
+          },
+          {
+            "title": "Plan",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns='http://www.w3.org/1999/xhtml'>Scaling and root planing performed posterior quadrants. Reinforced oral hygiene instruction. Recall in 3-4 months \u2014 critical given periodontitis history.</div>"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Composition"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c2000-2000-4b22-8b22-000000000106",
+      "resource": {
+        "resourceType": "Condition",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "resolved"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "413282004",
+              "display": "Extraction of tooth"
+            }
+          ],
+          "text": "Missing tooth \u2014 extracted due to advanced periodontal bone loss"
+        },
+        "subject": {
+          "reference": "Patient/de222222-2222-4222-8222-000000000002"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c2000-2000-4b22-8b22-000000000101"
+        },
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "system": "https://pulmolens.app/fhir/tooth",
+                "code": "30",
+                "display": "Tooth #30 (Lower Right 1st Molar)"
+              }
+            ]
+          }
+        ],
+        "onsetDateTime": "2023-02-01",
+        "recordedDate": "2025-10-14"
+      },
+      "request": {
+        "method": "POST",
+        "url": "Condition"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c2000-2000-4b22-8b22-000000000107",
+      "resource": {
+        "resourceType": "Condition",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "109621004",
+              "display": "Tooth mobility"
+            }
+          ],
+          "text": "Grade 1 tooth mobility, secondary to periodontal bone loss"
+        },
+        "subject": {
+          "reference": "Patient/de222222-2222-4222-8222-000000000002"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c2000-2000-4b22-8b22-000000000101"
+        },
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "system": "https://pulmolens.app/fhir/tooth",
+                "code": "14",
+                "display": "Tooth #14 (Upper Left 1st Molar)"
+              }
+            ]
+          }
+        ],
+        "onsetDateTime": "2025-06-01",
+        "recordedDate": "2025-10-14",
+        "note": [
+          {
+            "text": "Watch closely \u2014 mobility often precedes further attachment loss without maintenance."
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Condition"
+      }
+    }
+  ]
+}

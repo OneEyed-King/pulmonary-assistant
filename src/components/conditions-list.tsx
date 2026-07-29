@@ -22,10 +22,14 @@ export function ConditionsList({ conditions }: { conditions: Condition[] }) {
         {[...active, ...other].map((c) => {
           const code = c.code?.text ?? c.code?.coding?.[0]?.display ?? "Unknown condition";
           const status = c.clinicalStatus?.coding?.[0]?.code ?? "unknown";
+          const toothCode = c.bodySite?.[0]?.coding?.[0]?.code;
           return (
             <div key={code + c.recordedDate} className="flex items-start justify-between gap-3 border-b border-border pb-2 last:border-0 last:pb-0">
               <div>
-                <div className="text-sm font-medium text-gray-900">{code}</div>
+                <div className="flex items-center gap-1.5 text-sm font-medium text-gray-900">
+                  {toothCode && <Badge tone="blue">Tooth #{toothCode}</Badge>}
+                  {code}
+                </div>
                 {c.note?.[0]?.text && <div className="mt-0.5 text-xs text-gray-500">{c.note[0].text}</div>}
                 <div className="mt-0.5 text-xs text-gray-400">
                   Onset {formatDate(c.onsetDateTime)}

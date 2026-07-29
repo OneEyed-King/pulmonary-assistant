@@ -16,8 +16,11 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PulmoLens",
-  description: "AI-powered pulmonology chart review on top of a FHIR patient record system",
+  title: {
+    default: "PulmoLens & DentaLens",
+    template: "%s",
+  },
+  description: "AI-assisted, FHIR-native chart review — for pulmonology and dental practices.",
 };
 
 export default function RootLayout({
@@ -30,17 +33,7 @@ export default function RootLayout({
       <body
         className={`${jakarta.variable} ${plexMono.variable} min-h-screen bg-background font-sans text-foreground antialiased`}
       >
-        <div className="mx-auto flex min-h-screen max-w-7xl flex-col">
-          <header className="border-b border-border bg-white/60 px-6 py-4 backdrop-blur-sm">
-            <a href="/patients" className="flex items-center gap-2 font-display text-lg font-semibold text-gray-900">
-              <span className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-sm text-primary-foreground">
-                ⌘
-              </span>
-              PulmoLens
-            </a>
-          </header>
-          <main className="flex-1 px-6 py-6">{children}</main>
-        </div>
+        {children}
       </body>
     </html>
   );

@@ -64,9 +64,15 @@ export interface Narrative {
 
 export type Gender = "male" | "female" | "other" | "unknown";
 
+export interface ResourceMeta {
+  profile?: string[];
+  tag?: { system?: string; code?: string; display?: string }[];
+}
+
 export interface Patient {
   resourceType: "Patient";
   id?: string;
+  meta?: ResourceMeta;
   identifier?: Identifier[];
   name?: HumanName[];
   gender?: Gender;
@@ -101,6 +107,9 @@ export interface Condition {
   abatementDateTime?: string;
   recordedDate?: string;
   note?: { text: string }[];
+  /** Which tooth (or other body site) a condition applies to — used by DentaLens's odontogram.
+   * Not every condition is tooth-specific (e.g. generalized periodontitis), so this is optional. */
+  bodySite?: CodeableConcept[];
 }
 
 export interface Dosage {

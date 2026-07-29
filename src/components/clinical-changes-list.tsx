@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Siren, FlaskConical, Pill } from "lucide-react";
-import { computeMetricComparisons } from "@/lib/clinical-changes";
+import { computeMetricComparisons, PULMO_METRICS, type MetricConfig } from "@/lib/clinical-changes";
 import { formatDate, formatDateTime } from "@/lib/utils";
 import type { Encounter, MedicationRequest, Observation } from "@/lib/fhir-types";
 
@@ -31,10 +31,12 @@ export function ClinicalChangesList({
   observations,
   encounters,
   medications,
+  metrics = PULMO_METRICS,
 }: {
   observations: Observation[];
   encounters: Encounter[];
   medications: MedicationRequest[];
+  metrics?: MetricConfig[];
 }) {
   const rows: ChangeRow[] = [];
   const now = Date.now();
@@ -52,7 +54,7 @@ export function ClinicalChangesList({
     }
   }
 
-  for (const c of computeMetricComparisons(observations)) {
+  for (const c of computeMetricComparisons(observations, metrics)) {
     if (c.severity === "stable") continue;
     const trendWord = c.direction === "up" ? "rose" : c.direction === "down" ? "declined" : "changed";
     const from = c.previous !== undefined ? `${c.previous}${c.unit}` : "unknown";
@@ -60,7 +62,7 @@ export function ClinicalChangesList({
     rows.push({
       severity: c.severity === "significant" ? "significant" : "attention",
       icon: <FlaskConical className="h-4 w-4" />,
-      label: "Abnormal Lab",
+      label: "Abnormal Finding",
       date: c.currentDate,
       description: `${c.label} ${trendWord} from ${from} to ${to}${c.previousDate ? ` since ${formatDate(c.previousDate)}` : ""}.`,
     });

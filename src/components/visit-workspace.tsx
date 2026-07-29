@@ -9,12 +9,10 @@ import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { MEDICATION_CATALOG } from "@/lib/medication-catalog";
+import type { CatalogMedication } from "@/lib/medication-catalog";
 import type { Encounter } from "@/lib/fhir-types";
+import type { SpecialtyKey } from "@/lib/specialty";
 import { Trash2, Plus, ClipboardCheck, CheckCircle2, Sparkles } from "lucide-react";
-
-const PRACTITIONER_REF = "Practitioner/1011";
-const ORGANIZATION_REF = "Organization/1010";
 
 interface StagedMedication {
   rxcui?: string;
@@ -36,12 +34,26 @@ function wrapDiv(text: string): string {
 export function VisitWorkspace({
   patientId,
   patientName,
+  basePath,
+  specialtyKey,
+  practitionerRef,
+  practitionerDisplay,
+  organizationRef,
+  medicationCatalog,
+  notePlaceholder,
   encounter: initialEncounter,
   activeConditions,
   activeMedications,
 }: {
   patientId: string;
   patientName: string;
+  basePath: string;
+  specialtyKey: SpecialtyKey;
+  practitionerRef: string;
+  practitionerDisplay: string;
+  organizationRef: string;
+  medicationCatalog: CatalogMedication[];
+  notePlaceholder: string;
   encounter: Encounter | null;
   activeConditions: string[];
   activeMedications: string[];
@@ -52,9 +64,9 @@ export function VisitWorkspace({
   const [startError, setStartError] = React.useState<string | null>(null);
 
   const [stagedMeds, setStagedMeds] = React.useState<StagedMedication[]>([]);
-  const [medChoice, setMedChoice] = React.useState<string>(MEDICATION_CATALOG[0].rxcui);
+  const [medChoice, setMedChoice] = React.useState<string>(medicationCatalog[0].rxcui);
   const [medOtherText, setMedOtherText] = React.useState("");
-  const [medDosage, setMedDosage] = React.useState(MEDICATION_CATALOG[0].defaultDosage);
+  const [medDosage, setMedDosage] = React.useState(medicationCatalog[0].defaultDosage);
 
   const [note, setNote] = React.useState<NoteFields>({ subjective: "", objective: "", assessment: "", plan: "" });
   const [shorthand, setShorthand] = React.useState("");
@@ -77,8 +89,8 @@ export function VisitWorkspace({
           status: "in-progress",
           class: { system: "http://terminology.hl7.org/CodeSystem/v3-ActCode", code: "AMB", display: "ambulatory" },
           subject: { reference: `Patient/${patientId}` },
-          participant: [{ individual: { reference: PRACTITIONER_REF, display: "Dr. Linh Nguyen" } }],
-          serviceProvider: { reference: ORGANIZATION_REF },
+          participant: [{ individual: { reference: practitionerRef, display: practitionerDisplay } }],
+          serviceProvider: { reference: organizationRef },
           period: { start: new Date().toISOString() },
         }),
       });
@@ -98,7 +110,7 @@ export function VisitWorkspace({
       setStagedMeds((prev) => [...prev, { display: medOtherText.trim(), dosage: medDosage.trim() || "As directed" }]);
       setMedOtherText("");
     } else {
-      const catalogItem = MEDICATION_CATALOG.find((m) => m.rxcui === medChoice);
+      const catalogItem = medicationCatalog.find((m) => m.rxcui === medChoice);
       if (!catalogItem) return;
       setStagedMeds((prev) => [
         ...prev,
@@ -123,6 +135,7 @@ export function VisitWorkspace({
           shorthand,
           activeConditions,
           stagedMedications: stagedMeds.map((m) => `${m.display} — ${m.dosage}`),
+          specialtyKey,
         }),
       });
       const data = await res.json();
@@ -165,7 +178,7 @@ export function VisitWorkspace({
           subject: { reference: `Patient/${patientId}` },
           encounter: { reference: `Encounter/${encounter.id}` },
           authoredOn: nowISO.slice(0, 10),
-          requester: { reference: PRACTITIONER_REF, display: "Dr. Linh Nguyen" },
+          requester: { reference: practitionerRef, display: practitionerDisplay },
           dosageInstruction: [{ text: med.dosage }],
         },
         request: { method: "POST", url: "MedicationRequest" },
@@ -188,7 +201,7 @@ export function VisitWorkspace({
           subject: { reference: `Patient/${patientId}` },
           encounter: { reference: `Encounter/${encounter.id}` },
           date: nowISO,
-          author: [{ reference: PRACTITIONER_REF, display: "Dr. Linh Nguyen" }],
+          author: [{ reference: practitionerRef, display: practitionerDisplay }],
           title: "Visit Note",
           section: sections.map((s) => ({ title: s.title, text: { status: "generated", div: wrapDiv(s.text) } })),
         },
@@ -237,7 +250,7 @@ export function VisitWorkspace({
           {stagedMeds.length} medication{stagedMeds.length === 1 ? "" : "s"} and{" "}
           {noteHasContent ? "a visit note were" : "no note was"} saved to the FHIR server.
         </p>
-        <a href={`/patients/${patientId}`}>
+        <a href={`${basePath}/patients/${patientId}`}>
           <Button className="mt-4">Back to chart</Button>
         </a>
       </Card>
@@ -304,7 +317,7 @@ export function VisitWorkspace({
     );
   }
 
-  const selectedCatalog = MEDICATION_CATALOG.find((m) => m.rxcui === medChoice);
+  const selectedCatalog = medicationCatalog.find((m) => m.rxcui === medChoice);
 
   return (
     <div className="space-y-4">
@@ -347,11 +360,11 @@ export function VisitWorkspace({
                 value={medChoice}
                 onChange={(e) => {
                   setMedChoice(e.target.value);
-                  const item = MEDICATION_CATALOG.find((m) => m.rxcui === e.target.value);
+                  const item = medicationCatalog.find((m) => m.rxcui === e.target.value);
                   if (item) setMedDosage(item.defaultDosage);
                 }}
               >
-                {MEDICATION_CATALOG.map((m) => (
+                {medicationCatalog.map((m) => (
                   <option key={m.rxcui} value={m.rxcui}>
                     {m.display}
                   </option>
@@ -418,7 +431,7 @@ export function VisitWorkspace({
             rows={2}
             value={shorthand}
             onChange={(e) => setShorthand(e.target.value)}
-            placeholder="e.g. wheezing better, adherence spotty pt admits missing doses, lungs clear, step up therapy, f/u 6wk"
+            placeholder={notePlaceholder}
           />
           <p className="text-xs text-muted-foreground">
             Expands your own shorthand into a draft SOAP note below — it only elaborates on what you write here

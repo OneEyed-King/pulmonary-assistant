@@ -1,0 +1,358 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:de0c4000-4000-4b44-8b44-000000000101",
+      "resource": {
+        "resourceType": "Encounter",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "409969007",
+                "display": "Restoration of tooth with filling"
+              }
+            ],
+            "text": "Composite filling \u2014 restorative visit"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/de444444-4444-4444-8444-000000000004"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/2011",
+              "display": "Dr. Naomi Ortiz"
+            }
+          }
+        ],
+        "serviceProvider": {
+          "reference": "Organization/2010"
+        },
+        "period": {
+          "start": "2026-06-25T11:00:00-04:00",
+          "end": "2026-06-25T11:50:00-04:00"
+        }
+      },
+      "request": {
+        "method": "POST",
+        "url": "Encounter"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c4000-4000-4b44-8b44-000000000102",
+      "resource": {
+        "resourceType": "Condition",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis"
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "resolved"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "encounter-diagnosis",
+                "display": "Encounter Diagnosis"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "80967001",
+              "display": "Dental caries"
+            }
+          ],
+          "text": "Dental caries, lower left first molar (tooth #19), occlusal surface"
+        },
+        "subject": {
+          "reference": "Patient/de444444-4444-4444-8444-000000000004"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c4000-4000-4b44-8b44-000000000101"
+        },
+        "onsetDateTime": "2026-05-01",
+        "abatementDateTime": "2026-06-25",
+        "recordedDate": "2026-06-25",
+        "note": [
+          {
+            "text": "Moderate occlusal caries identified on routine bitewing, no pulpal involvement. Treated same-visit with composite restoration."
+          }
+        ],
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "system": "https://pulmolens.app/fhir/tooth",
+                "code": "19",
+                "display": "Tooth #19 (Lower Left 1st Molar)"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Condition"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c4000-4000-4b44-8b44-000000000130",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "RAD",
+                "display": "Radiology"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "Bitewing radiograph \u2014 lower left"
+        },
+        "subject": {
+          "reference": "Patient/de444444-4444-4444-8444-000000000004"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c4000-4000-4b44-8b44-000000000101"
+        },
+        "effectiveDateTime": "2026-06-25T11:10:00-04:00",
+        "issued": "2026-06-25T11:50:00-04:00",
+        "performer": [
+          {
+            "reference": "Practitioner/2011",
+            "display": "Dr. Naomi Ortiz"
+          }
+        ],
+        "conclusion": "Moderate occlusal caries #19, confined to dentin, no pulpal involvement. Restored same visit with composite."
+      },
+      "request": {
+        "method": "POST",
+        "url": "DiagnosticReport"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c4000-4000-4b44-8b44-000000000140",
+      "resource": {
+        "resourceType": "Composition",
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11506-3",
+              "display": "Progress note"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/de444444-4444-4444-8444-000000000004"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c4000-4000-4b44-8b44-000000000101"
+        },
+        "date": "2026-06-25T11:50:00-04:00",
+        "author": [
+          {
+            "reference": "Practitioner/2011",
+            "display": "Dr. Naomi Ortiz"
+          }
+        ],
+        "title": "Restorative Visit \u2014 Composite Filling",
+        "section": [
+          {
+            "title": "Subjective",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns='http://www.w3.org/1999/xhtml'>Patient reports mild sensitivity to cold on lower left side for several weeks. No spontaneous pain.</div>"
+            }
+          },
+          {
+            "title": "Objective",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns='http://www.w3.org/1999/xhtml'>Bitewing radiograph confirms moderate occlusal caries #19, dentin-confined, no periapical involvement. Cold test within normal limits.</div>"
+            }
+          },
+          {
+            "title": "Assessment",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns='http://www.w3.org/1999/xhtml'>Dental caries #19, occlusal, dentin-confined \u2014 vital tooth.</div>"
+            }
+          },
+          {
+            "title": "Plan",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns='http://www.w3.org/1999/xhtml'>Local anesthesia (articaine \u2014 patient has documented lidocaine allergy), caries excavation, composite restoration placed. Post-op sensitivity instructions given. Routine 6-month recall.</div>"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Composition"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c4000-4000-4b44-8b44-000000000150",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "category": [
+          "medication"
+        ],
+        "criticality": "high",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387548004",
+              "display": "Lidocaine"
+            }
+          ],
+          "text": "Lidocaine (amide local anesthetic)"
+        },
+        "patient": {
+          "reference": "Patient/de444444-4444-4444-8444-000000000004"
+        },
+        "recordedDate": "2026-06-25",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "text": "Facial swelling and hives after dental block anesthesia in childhood"
+              }
+            ],
+            "severity": "severe"
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "AllergyIntolerance"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c4000-4000-4b44-8b44-000000000106",
+      "resource": {
+        "resourceType": "Condition",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "80967001",
+              "display": "Dental caries"
+            }
+          ],
+          "text": "Early interproximal caries, watch \u2014 not yet requiring restoration"
+        },
+        "subject": {
+          "reference": "Patient/de444444-4444-4444-8444-000000000004"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c4000-4000-4b44-8b44-000000000101"
+        },
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "system": "https://pulmolens.app/fhir/tooth",
+                "code": "3",
+                "display": "Tooth #3 (Upper Right 1st Molar)"
+              }
+            ]
+          }
+        ],
+        "onsetDateTime": "2026-06-25",
+        "recordedDate": "2026-06-25",
+        "note": [
+          {
+            "text": "Small radiolucency confined to enamel on bitewing. Reassess at next recall; may remineralize with fluoride."
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Condition"
+      }
+    }
+  ]
+}
