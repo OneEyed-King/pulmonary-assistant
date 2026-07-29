@@ -353,6 +353,44 @@
         "method": "POST",
         "url": "Condition"
       }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c4000-4000-4b44-8b44-000000000107",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "status": "completed",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "197806",
+              "display": "Ibuprofen 400 MG Oral Tablet"
+            }
+          ],
+          "text": "Ibuprofen 400mg \u2014 PRN for expected post-op sensitivity"
+        },
+        "subject": {
+          "reference": "Patient/de444444-4444-4444-8444-000000000004"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c4000-4000-4b44-8b44-000000000101"
+        },
+        "authoredOn": "2026-06-25",
+        "requester": {
+          "reference": "Practitioner/2011",
+          "display": "Dr. Naomi Ortiz"
+        },
+        "dosageInstruction": [
+          {
+            "text": "Take 1 tablet (400mg) by mouth every 6-8 hours as needed for 2-3 days if sensitive"
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "MedicationRequest"
+      }
     }
   ]
 }

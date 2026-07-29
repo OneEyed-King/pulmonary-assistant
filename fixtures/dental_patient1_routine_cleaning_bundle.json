@@ -380,6 +380,44 @@
         "method": "POST",
         "url": "Condition"
       }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c1000-1000-4b11-8b11-000000000109",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "status": "completed",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "1547686",
+              "display": "Sodium fluoride 5% varnish"
+            }
+          ],
+          "text": "Sodium fluoride 5% varnish \u2014 preventive, applied in-office"
+        },
+        "subject": {
+          "reference": "Patient/de111111-1111-4111-8111-000000000001"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c1000-1000-4b11-8b11-000000000101"
+        },
+        "authoredOn": "2026-06-10",
+        "requester": {
+          "reference": "Practitioner/2011",
+          "display": "Dr. Naomi Ortiz"
+        },
+        "dosageInstruction": [
+          {
+            "text": "Applied topically to all surfaces at cleaning visit; avoid hard/hot food and brushing for 4-6 hours"
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "MedicationRequest"
+      }
     }
   ]
 }

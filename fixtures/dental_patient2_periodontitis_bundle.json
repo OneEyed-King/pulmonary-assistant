@@ -503,6 +503,49 @@
         "method": "POST",
         "url": "Condition"
       }
+    },
+    {
+      "fullUrl": "urn:uuid:de0c2000-2000-4b22-8b22-000000000108",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "834061",
+              "display": "Chlorhexidine gluconate 0.12% oral rinse"
+            }
+          ],
+          "text": "Chlorhexidine gluconate 0.12% oral rinse \u2014 adjunct after scaling/root planing"
+        },
+        "subject": {
+          "reference": "Patient/de222222-2222-4222-8222-000000000002"
+        },
+        "encounter": {
+          "reference": "urn:uuid:de0c2000-2000-4b22-8b22-000000000101"
+        },
+        "authoredOn": "2025-10-14",
+        "requester": {
+          "reference": "Practitioner/2011",
+          "display": "Dr. Naomi Ortiz"
+        },
+        "reasonReference": [
+          {
+            "reference": "urn:uuid:de0c2000-2000-4b22-8b22-000000000102"
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "text": "Rinse with 15mL for 30 seconds twice daily for 2 weeks following SRP"
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "MedicationRequest"
+      }
     }
   ]
 }
